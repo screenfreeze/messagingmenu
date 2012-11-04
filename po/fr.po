@@ -1,0 +1,26 @@
+# French translations for PACKAGE package.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Andreas Wilhelm <screenfreeze.net@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-03 17:36+0100\n"
+"PO-Revision-Date: 2012-11-03 17:40+0100\n"
+"Last-Translator: Andreas Wilhelm <screenfreeze.net@gmail.com>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: extension.js:26
+msgid "Compose New Message"
+msgstr "Composer un nouveau Message"
+
+#: extension.js:27
+msgid "Contacts"
+msgstr "Contacts"

@@ -15,13 +15,13 @@ const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-//const Convenience = Me.imports.convenience;
+const Convenience = Me.imports.convenience;
 
 const ICON_SIZE = 22;
 
-let compatible_Chats = [ "skype" , "pidgin", "empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion",  "qwit", "turpial" ];
-let compatible_MBlogs = [ "gwibber", "pino", "hotot" ];
-let compatible_Emails = [ "thunderbird", "evolution", "postler", "claws-mail", "KMail2" ];
+let compatible_Chats = [ "skype" , "pidgin", "empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion"  ];
+let compatible_MBlogs = [ "gwibber", "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
+let compatible_Emails = [ "thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary" ];
 
 
 
@@ -57,6 +57,8 @@ const MessageMenu = new Lang.Class({
     _init: function() {
         this.parent('mymail-symbolic');
 
+		this.new_msg_string = _("Compose New Message");
+        this.contacts_string = _("Contacts");
 		this._availableEmails = new Array ();
 		this._availableChats = new Array ();
 		this._availableMBlogs = new Array ();
@@ -64,6 +66,7 @@ const MessageMenu = new Lang.Class({
 		this._thunderbird = null;
 		this._kmail = null;
 		this._claws = null;
+		this._evolution = null;
 		
 		this._getApps();
         this._buildMenu();
@@ -74,13 +77,24 @@ const MessageMenu = new Lang.Class({
 		
 		// insert Email Clients into menu
 
+		// Special Evolution Menu Entry
+		if (this._evolution != null) {
+			let newLauncher = new MessageMenuItem(this._evolution);
+			this.menu.addMenuItem(newLauncher);
+
+			this.con =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
+			
+			this.con.connect('activate', Lang.bind(this, this._evolutionContacts));
+			this.menu.addMenuItem(this.con);
+		}
+
 		// Special Thunderbird Menu Entry
 		if (this._thunderbird != null) {
 			let newLauncher = new MessageMenuItem(this._thunderbird);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp_tb = new PopupMenu.PopupMenuItem("        Compose New Message...");
-			this.con_tb =  new PopupMenu.PopupMenuItem("        Contacts");
+			this.comp_tb = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
+			this.con_tb =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
 			
 			this.comp_tb.connect('activate', Lang.bind(this, this._TbCompose));
 			this.menu.addMenuItem(this.comp_tb);
@@ -94,7 +108,7 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._kmail);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp =  new PopupMenu.PopupMenuItem("        Compose New Message...");
+			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
 			
 			this.comp.connect('activate', Lang.bind(this, this._kmailCompose));
 			this.menu.addMenuItem(this.comp);
@@ -105,7 +119,7 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._claws);
 			this.menu.addMenuItem(newLauncher);
 		
-			this.comp =  new PopupMenu.PopupMenuItem("        Compose New Message...");
+			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
 			
 			this.comp.connect('activate', Lang.bind(this, this._clawsCompose));
 			this.menu.addMenuItem(this.comp);
@@ -152,6 +166,9 @@ const MessageMenu = new Lang.Class({
 				else if (app_name == 'claws-mail') {
 					this._claws = app;
 				}
+				else if (app_name == 'evolution') {
+					this._evolution = app;
+				}
 				else {
 					this._availableEmails.push(app);
 				}				
@@ -195,6 +212,10 @@ const MessageMenu = new Lang.Class({
 		Main.Util.trySpawnCommandLine('claws-mail --compose');
 	},
 
+	_evolutionContacts: function() {
+		Main.Util.trySpawnCommandLine('evolution -c contacts');
+	},
+
     destroy: function() {
 
         this.parent();
@@ -203,7 +224,7 @@ const MessageMenu = new Lang.Class({
 });
 
 function init(extensionMeta) {
-    //Convenience.initTranslations();
+    Convenience.initTranslations();
     let theme = imports.gi.Gtk.IconTheme.get_default();
     theme.append_search_path(extensionMeta.path + "/icons");
 }
