@@ -19,9 +19,9 @@ const Convenience = Me.imports.convenience;
 
 const ICON_SIZE = 22;
 
-let compatible_Chats = [ "skype" , "pidgin", "empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion"  ];
+let compatible_Chats = [ "skype" , "pidgin", "empathy", "fedora-empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion" ];
 let compatible_MBlogs = [ "gwibber", "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
-let compatible_Emails = [ "thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary" ];
+let compatible_Emails = [ "thunderbird", "mozilla-thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary" ];
 
 
 
@@ -59,6 +59,7 @@ const MessageMenu = new Lang.Class({
 
 		this.new_msg_string = _("Compose New Message");
         this.contacts_string = _("Contacts");
+
 		this._availableEmails = new Array ();
 		this._availableChats = new Array ();
 		this._availableMBlogs = new Array ();
