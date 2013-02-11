@@ -21,7 +21,7 @@ const ICON_SIZE = 22;
 
 let compatible_Chats = [ "skype" , "pidgin", "empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion"  ];
 let compatible_MBlogs = [ "gwibber", "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
-let compatible_Emails = [ "thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary" ];
+let compatible_Emails = [ "thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary", "icedove" ];
 
 
 
@@ -64,6 +64,7 @@ const MessageMenu = new Lang.Class({
 		this._availableMBlogs = new Array ();
 
 		this._thunderbird = null;
+		this._icedove = null;
 		this._kmail = null;
 		this._claws = null;
 		this._evolution = null;
@@ -101,6 +102,21 @@ const MessageMenu = new Lang.Class({
 			
 			this.con_tb.connect('activate', Lang.bind(this, this._TbContacts));
 			this.menu.addMenuItem(this.con_tb);
+		}
+
+		// Special Icedove Menu Entry
+		if (this._icedove != null) {
+			let newLauncher = new MessageMenuItem(this._icedove);
+			this.menu.addMenuItem(newLauncher);
+
+			this.comp_icedove = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
+			this.con_icedove =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
+			
+			this.comp_icedove.connect('activate', Lang.bind(this, this._icedoveCompose));
+			this.menu.addMenuItem(this.comp_icedove);
+			
+			this.con_icedove.connect('activate', Lang.bind(this, this._icedoveContacts));
+			this.menu.addMenuItem(this.con_icedove);
 		}
 
 		// Special Kmail Menu Entry
@@ -160,6 +176,9 @@ const MessageMenu = new Lang.Class({
 				if (app_name == 'thunderbird') {
 					this._thunderbird = app;
 				}
+				else if (app_name == 'icedove') {
+					this._icedove = app;
+				}
 				else if (app_name == 'KMail2') {
 					this._kmail = app;
 				}
@@ -202,6 +221,14 @@ const MessageMenu = new Lang.Class({
 
 	_TbContacts: function() {
 		Main.Util.trySpawnCommandLine('thunderbird -addressbook');
+	},
+
+	_icedoveCompose: function() {
+		Main.Util.trySpawnCommandLine('icedove -compose');
+	},
+
+	_icedoveContacts: function() {
+		Main.Util.trySpawnCommandLine('icedove -addressbook');
 	},
 
 	_kmailCompose: function() {
