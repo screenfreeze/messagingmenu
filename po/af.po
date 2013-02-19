@@ -1,4 +1,4 @@
-# German translations for PACKAGE package.
+# Afrikaans translations for PACKAGE package.
 # Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Andreas Wilhelm <screenfreeze.net@gmail.com>, 2012.
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-11 23:13+0000\n"
-"PO-Revision-Date: 2013-02-11 23:15+0000\n"
+"PO-Revision-Date: 2013-02-19 12:39+0000\n"
 "Last-Translator: Siôn Le Roux <sion@sionleroux.com>\n"
 "Language-Team: Afrikaans\n"
 "Language: af\n"
