@@ -84,9 +84,12 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._evolution);
 			this.menu.addMenuItem(newLauncher);
 
+			this.comp = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
 			this.con =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
 			
 			this.con.connect('activate', Lang.bind(this, this._evolutionContacts));
+			this.comp.connect('activate', Lang.bind(this, this._evolutionCompose));
+			this.menu.addMenuItem(this.comp);
 			this.menu.addMenuItem(this.con);
 		}
 
@@ -238,6 +241,10 @@ const MessageMenu = new Lang.Class({
 
 	_clawsCompose: function() {
 		Main.Util.trySpawnCommandLine('claws-mail --compose');
+	},
+
+	_evolutionCompose: function() {
+		Main.Util.trySpawnCommandLine('evolution mailto:');
 	},
 
 	_evolutionContacts: function() {
