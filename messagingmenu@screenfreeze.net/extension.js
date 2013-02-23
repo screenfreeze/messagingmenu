@@ -20,7 +20,7 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [ "skype" , "pidgin", "empathy", "fedora-empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion" ];
-let compatible_MBlogs = [ "gwibber", "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
+let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
 let compatible_Emails = [ "thunderbird", "mozilla-thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary", "icedove" ];
 
 
