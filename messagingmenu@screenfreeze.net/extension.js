@@ -9,6 +9,7 @@ const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
+const MessageTray = imports.ui.messageTray;
 
 const Gettext = imports.gettext.domain('gnome-shell-extensions');
 const _ = Gettext.gettext;
@@ -209,7 +210,8 @@ const MessageMenu = new Lang.Class({
 				}
 				else {
 					this._availableEmails.push(app);
-				}				
+				}
+				availableNotifiers.push(app);				
 			}
 		}
 		//get available Chat Apps
@@ -219,6 +221,7 @@ const MessageMenu = new Lang.Class({
 		
 			if (app != null) {
 				this._availableChats.push(app);
+				availableNotifiers.push(app);
 			}
 		}
 		//get available Blogging Apps
@@ -279,6 +282,107 @@ const MessageMenu = new Lang.Class({
 
 });
 
+function _updateMessageStatus() {
+	// get all Messages
+	let items;
+
+	// GS 3.4 Support
+	if (Main.messageTray._summaryItems != undefined) { items = Main.messageTray._summaryItems; }
+	// GS 3.6 Support
+	else {
+		try{
+ 			items = Main.messageTray.getSummeryItems();
+		}
+		catch(e){
+			// GS 3.8 Support
+ 			items = Main.messageTray.getSources();
+		}
+	}
+
+	let newMessage = false;
+	for (let i = 0; i < items.length; i++) {
+		let source;
+		if (items[i].source != undefined) {source = items[i].source;}
+		else {source = items[i];} // GS 3.8
+		
+		// check for new Chat Messages
+		if (source.isChat && !source.isMuted && unseenMessageCheck(source)) { newMessage = true; }
+		else if (source.app != null) {
+			// check for Message from known Email App
+			for (let j = 0; j < availableNotifiers.length; j++) {
+				let app_id = availableNotifiers[j].get_id();   //e.g. thunderbird.desktop
+				if (source.app.get_id() == app_id && unseenMessageCheck(source)) {
+					newMessage = true;
+				}
+			}	
+		}
+		else {
+			for (let k = 0; k < availableNotifiers.length; k++) {
+				let app_name = availableNotifiers[k].get_name();   //e.g. Thunderbird Mail			
+				if (source.title == app_name && unseenMessageCheck(source) ) {
+					newMessage = true;
+				}
+			}
+			// For Firetray
+			if (source.title == "Thunderbird" && unseenMessageCheck(source)) {
+				newMessage = true;
+			}
+		}
+	}
+	
+	// Change Status Icon in Panel
+	if (newMessage && !iconChanged) {
+		//let messMenu = statusArea.messageMenu;
+		let style = "color: #ff0000";
+		iconBox.set_style(style);
+		iconChanged = true;
+	}
+	else if (!newMessage && iconChanged) {
+		//let messMenu = statusArea.messageMenu;
+		iconBox.set_style(originalStyle);
+		iconChanged = false;	
+	}
+}
+
+function unseenMessageCheck(source) {
+	let unseen = false;
+	if (source.unseenCount == undefined) {
+		unseen = (source._counterBin.visible &&
+        source._counterLabel.get_text() != '0');
+	}
+	else {
+		unseen = source.unseenCount > 0;	
+	}
+
+	return unseen;
+}
+
+function _countUpdated() {
+  originalCountUpdated.call(this);
+
+  _updateMessageStatus();
+}
+
+// GS 3.4
+function _pushNotification(notification) {
+  originalPushNotification.call(this, notification);
+
+  _updateMessageStatus();
+}
+
+// GS 3.4
+function _setCount(count, visible) {
+  originalSetCount.call(this, count, visible);
+
+  _updateMessageStatus();
+}
+
+function _destroy() {
+  originalDestroy.call(this);
+  _updateMessageStatus();
+
+}
+
 function init(extensionMeta) {
     Convenience.initTranslations();
     let theme = imports.gi.Gtk.IconTheme.get_default();
@@ -286,10 +390,43 @@ function init(extensionMeta) {
 }
 
 let _indicator;
+let originalCountUpdated;
+let originalPushNotification;
+let originalSetCount;
+let originalDestroy;
+let originalStyle;
+let iconChanged = false;
+let availableNotifiers = new Array ();
+let statusArea;
+let iconBox;
 
 function enable() {
     _indicator = new MessageMenu;
-    Main.panel.addToStatusArea('message-menu', _indicator,1);
+
+	//GS 3.4 Support
+    if (Main.panel.statusArea != undefined) {  //GS 3.6+
+		statusArea =  Main.panel.statusArea;
+		originalCountUpdated = MessageTray.Source.prototype.countUpdated; 			
+		MessageTray.Source.prototype.countUpdated = _countUpdated;
+	}
+    else {  // GS 3.4
+		statusArea =  Main.panel._statusArea;
+		originalPushNotification = MessageTray.Source.prototype.pushNotification;
+  		originalSetCount = MessageTray.Source.prototype._setCount; 
+		MessageTray.Source.prototype.pushNotification = _pushNotification;
+		MessageTray.Source.prototype._setCount = _setCount;
+	}
+	
+    originalDestroy = MessageTray.Source.prototype.destroy;    
+    MessageTray.Source.prototype.destroy = _destroy;
+    
+    Main.panel.addToStatusArea('messageMenu', _indicator,1);
+	
+	//GS 3.4 Support
+	if (statusArea.messageMenu._box != undefined) { iconBox =  statusArea.messageMenu._box; }
+    else { iconBox = statusArea.messageMenu._iconActor; }
+
+    originalStyle = iconBox.get_style();
 }
 
 function disable() {
