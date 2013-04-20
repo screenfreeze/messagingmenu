@@ -1,5 +1,5 @@
 {
-"shell-version": ["3.4","3.5","3.6"], 
+"shell-version": ["3.4","3.5","3.6","3.8"], 
 "uuid": "messagingmenu@screenfreeze.net", 
 "name": "Messaging Menu", 
 "gettext-domain": "gnome-shell-extensions", 

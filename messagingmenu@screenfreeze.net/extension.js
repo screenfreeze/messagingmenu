@@ -20,7 +20,7 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [ "skype" , "pidgin", "empathy", "fedora-empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion" ];
-let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly" ];
+let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly", "birdie", "friends-app" ];
 let compatible_Emails = [ "thunderbird", "mozilla-thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary", "icedove" ];
 
 
@@ -69,6 +69,7 @@ const MessageMenu = new Lang.Class({
 		this._kmail = null;
 		this._claws = null;
 		this._evolution = null;
+		this._geary = null;
 		
 		this._getApps();
         this._buildMenu();
@@ -145,6 +146,17 @@ const MessageMenu = new Lang.Class({
 			this.menu.addMenuItem(this.comp);
 		}
 
+		// Special Geary Menu Entry
+		if (this._geary != null) {
+			let newLauncher = new MessageMenuItem(this._geary);
+			this.menu.addMenuItem(newLauncher);
+		
+			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
+			
+			this.comp.connect('activate', Lang.bind(this, this._gearyCompose));
+			this.menu.addMenuItem(this.comp);
+		}
+
 
 		for (var t=0; t<this._availableEmails.length; t++) {
 			let e_app=this._availableEmails[t];
@@ -191,6 +203,9 @@ const MessageMenu = new Lang.Class({
 				}
 				else if (app_name == 'evolution') {
 					this._evolution = app;
+				}
+				else if (app_name == 'geary') {
+					this._geary = app;
 				}
 				else {
 					this._availableEmails.push(app);
@@ -249,6 +264,12 @@ const MessageMenu = new Lang.Class({
 
 	_evolutionContacts: function() {
 		Main.Util.trySpawnCommandLine('evolution -c contacts');
+	},
+
+	_gearyCompose: function() {		
+		Main.Util.trySpawnCommandLine('geary');
+		//geary 0.3.1 workaround (geary must be started)
+		imports.mainloop.timeout_add(3000,function() {  Main.Util.trySpawnCommandLine('geary mailto:'); });
 	},
 
     destroy: function() {
