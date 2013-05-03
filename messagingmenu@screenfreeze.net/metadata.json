@@ -5,5 +5,6 @@
 "gettext-domain": "gnome-shell-extensions", 
 "description": "A Messaging Menu for the Gnome Shell. All Email and Chat Applications in one Place.",
 "url": "https://github.com/screenfreeze/messagingmenu.git",
-"version": 3
+"version": 3,
+"settings-schema": "org.gnome.shell.extensions.messagingmenu"
 }

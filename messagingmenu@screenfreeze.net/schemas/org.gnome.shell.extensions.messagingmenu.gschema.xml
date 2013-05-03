@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema path="/org/gnome/shell/extensions/messagingmenu/" id="org.gnome.shell.extensions.messagingmenu">
+    <key name="notify-email" type="b">
+        <default>true</default>
+      <summary>Alert on new Email</summary>
+      <description>
+        Icon blinks on new Email
+      </description>
+    </key>
+    <key name="notify-chat" type="b">
+        <default>true</default>
+      <summary>Alert on new Chat</summary>
+      <description>
+        Icon blinks on new Chat
+      </description>
+    </key>
+    <key name="notify-mblogging" type="b">
+        <default>false</default>
+      <summary>Alert on new News</summary>
+      <description>
+        Icon blinks on new Blogposts
+      </description>
+    </key>
+    <key name="notify-other" type="b">
+        <default>false</default>
+      <summary>Alert on new Messages from other Apps</summary>
+      <description>
+        Icon blinks on new Messages
+      </description>
+    </key>
+    <key name="color" type="s">
+      <default>'#ff0000'</default>
+      <summary>Notification Color</summary>
+      <description>
+		The color used to paint the Icon
+	  </description>
+    </key>
+  </schema>
+</schemalist>
