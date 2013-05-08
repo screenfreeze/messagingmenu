@@ -21,10 +21,12 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [ "skype" , "pidgin", "empathy", "fedora-empathy", "xchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion" ];
-let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly", "birdie", "friends-app" ];
+let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly", "birdie", "friends-app", "gfeedline" ];
 let compatible_Emails = [ "thunderbird", "mozilla-thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary", "icedove" ];
 
-
+// Must be their Notificationtitle, because lookup_app doesnt work here
+let compatible_hidden_Email_Notifiers = [ "Mailnag", "Thunderbird", "gmail-notify", "mail-notification" ];
+let compatible_hidden_MBlog_Notifiers = [ "friends", "gwibber", "GFeedLine" ];
 
 
 
@@ -211,7 +213,9 @@ const MessageMenu = new Lang.Class({
 				else {
 					this._availableEmails.push(app);
 				}
-				availableNotifiers.push(app);				
+				if (settings.get_boolean('notify-email')) {
+					availableNotifiers.push(app);
+				}			
 			}
 		}
 		//get available Chat Apps
@@ -221,7 +225,9 @@ const MessageMenu = new Lang.Class({
 		
 			if (app != null) {
 				this._availableChats.push(app);
-				availableNotifiers.push(app);
+				if (settings.get_boolean('notify-chat')) {
+					availableNotifiers.push(app);
+				}
 			}
 		}
 		//get available Blogging Apps
@@ -231,9 +237,11 @@ const MessageMenu = new Lang.Class({
 		
 			if (app != null) {
 				this._availableMBlogs.push(app);
+				if (settings.get_boolean('notify-mblogging')) {
+					availableNotifiers.push(app);
+				}
 			}
 		}
-
 
 	},
 
@@ -306,7 +314,7 @@ function _updateMessageStatus() {
 		else {source = items[i];} // GS 3.8
 		
 		// check for new Chat Messages
-		if (source.isChat && !source.isMuted && unseenMessageCheck(source)) { newMessage = true; }
+		if (settings.get_boolean('notify-chat') && source.isChat && !source.isMuted && unseenMessageCheck(source)) { newMessage = true; }
 		else if (source.app != null) {
 			// check for Message from known Email App
 			for (let j = 0; j < availableNotifiers.length; j++) {
@@ -323,9 +331,22 @@ function _updateMessageStatus() {
 					newMessage = true;
 				}
 			}
-			// For Firetray
-			if (source.title == "Thunderbird" && unseenMessageCheck(source)) {
-				newMessage = true;
+			if (settings.get_boolean('notify-email')) {
+				for (let l = 0; l < compatible_hidden_Email_Notifiers.length; l++) {
+					let app_name = compatible_hidden_Email_Notifiers[l];   //e.g. Mailnag			
+					if (source.title == app_name && unseenMessageCheck(source) ) {
+						newMessage = true;
+					}
+				}
+			}
+
+			if (settings.get_boolean('notify-mblogging')) {
+				for (let m = 0; m < compatible_hidden_MBlog_Notifiers.length; m++) {
+					let app_name = compatible_hidden_MBlog_Notifiers[m];   //e.g. friends			
+					if (source.title == app_name && unseenMessageCheck(source) ) {
+						newMessage = true;
+					}
+				}
 			}
 		}
 	}
@@ -333,7 +354,8 @@ function _updateMessageStatus() {
 	// Change Status Icon in Panel
 	if (newMessage && !iconChanged) {
 		//let messMenu = statusArea.messageMenu;
-		let style = "color: #ff0000";
+		let color = settings.get_string('color');
+		let style = "color: "+color;
 		iconBox.set_style(style);
 		iconChanged = true;
 	}
@@ -357,10 +379,17 @@ function unseenMessageCheck(source) {
 	return unseen;
 }
 
-function _countUpdated() {
-  originalCountUpdated.call(this);
+function customUpdateCount() {
+  originalUpdateCount.call(this);
 
-  _updateMessageStatus();
+    try {
+        _updateMessageStatus();
+    }
+    catch (err) {
+        /* If the extension is broken I don't want to break everything.
+         * We just catch the extension, print it and go on */
+        logError (err, err);
+    }  
 }
 
 // GS 3.4
@@ -385,12 +414,14 @@ function _destroy() {
 
 function init(extensionMeta) {
     Convenience.initTranslations();
+    settings = Convenience.getSettings();
     let theme = imports.gi.Gtk.IconTheme.get_default();
     theme.append_search_path(extensionMeta.path + "/icons");
 }
 
 let _indicator;
-let originalCountUpdated;
+let settings;
+let originalUpdateCount;
 let originalPushNotification;
 let originalSetCount;
 let originalDestroy;
@@ -403,32 +434,28 @@ let iconBox;
 function enable() {
     _indicator = new MessageMenu;
 
-	//GS 3.4 Support
+    originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
+    MessageTray.SourceActor.prototype._updateCount = customUpdateCount;
+
+		//GS 3.4 Support
     if (Main.panel.statusArea != undefined) {  //GS 3.6+
 		statusArea =  Main.panel.statusArea;
-		originalCountUpdated = MessageTray.Source.prototype.countUpdated; 			
-		MessageTray.Source.prototype.countUpdated = _countUpdated;
 	}
     else {  // GS 3.4
 		statusArea =  Main.panel._statusArea;
-		originalPushNotification = MessageTray.Source.prototype.pushNotification;
-  		originalSetCount = MessageTray.Source.prototype._setCount; 
-		MessageTray.Source.prototype.pushNotification = _pushNotification;
-		MessageTray.Source.prototype._setCount = _setCount;
 	}
-	
-    originalDestroy = MessageTray.Source.prototype.destroy;    
-    MessageTray.Source.prototype.destroy = _destroy;
     
     Main.panel.addToStatusArea('messageMenu', _indicator,1);
 	
 	//GS 3.4 Support
-	if (statusArea.messageMenu._box != undefined) { iconBox =  statusArea.messageMenu._box; }
+    if (statusArea.messageMenu._box != undefined) { iconBox =  statusArea.messageMenu._box; }
     else { iconBox = statusArea.messageMenu._iconActor; }
 
     originalStyle = iconBox.get_style();
 }
 
 function disable() {
+    MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
+    originalUpdateCount = null;
     _indicator.destroy();
 }
