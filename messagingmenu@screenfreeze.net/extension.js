@@ -381,7 +381,6 @@ function unseenMessageCheck(source) {
 
 function customUpdateCount() {
   originalUpdateCount.call(this);
-
     try {
         _updateMessageStatus();
     }
@@ -456,6 +455,5 @@ function enable() {
 
 function disable() {
     MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
-    originalUpdateCount = null;
     _indicator.destroy();
 }
