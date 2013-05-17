@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-03 17:36+0100\n"
+"POT-Creation-Date: 2013-05-17 16:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:26
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr ""
+
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr ""
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr ""
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr ""
+
+#: extension.js:63
 msgid "Compose New Message"
 msgstr ""
 
-#: extension.js:27
+#: extension.js:64
 msgid "Contacts"
 msgstr ""
