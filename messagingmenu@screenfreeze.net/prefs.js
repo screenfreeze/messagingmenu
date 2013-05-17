@@ -14,7 +14,7 @@ function createColorSettingWidget() {
     let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
                             margin_top: 5});
 
-    let color_setting_label = new Gtk.Label({label: "Notification Color (Hex):",
+    let color_setting_label = new Gtk.Label({label: _("Notification Color (Hex):"),
                                        xalign: 0 });
 
     let color_setting_string = new Gtk.Entry({text: settings.get_string('color')});
@@ -37,7 +37,7 @@ function createNotificationSettingsWidget() {
     let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
                             margin_top: 5});
 
-    let email_setting_label = new Gtk.Label({label: "Email Notification:",
+    let email_setting_label = new Gtk.Label({label: _("Email Notification:"),
                                        xalign: 0 });
 
     let email_setting_switch = new Gtk.Switch({active: settings.get_boolean('notify-email')});
@@ -52,7 +52,7 @@ function createNotificationSettingsWidget() {
 	let hbox2 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
                             margin_top: 5});
 
-    let chat_setting_label = new Gtk.Label({label: "Chat Notification:",
+    let chat_setting_label = new Gtk.Label({label: _("Chat Notification:"),
                                        xalign: 0 });
 
     let chat_setting_switch = new Gtk.Switch({active: settings.get_boolean('notify-chat')});
@@ -67,7 +67,7 @@ function createNotificationSettingsWidget() {
     let hbox3 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
                             margin_top: 5});
 
-    let mblogging_setting_label = new Gtk.Label({label: "Micro Blogging Notification:",
+    let mblogging_setting_label = new Gtk.Label({label: _("Micro Blogging Notification:"),
                                        xalign: 0 });
 
     let mblogging_setting_switch = new Gtk.Switch({active: settings.get_boolean('notify-mblogging')});
@@ -99,4 +99,5 @@ function buildPrefsWidget() {
 
 function init() {
     settings = Convenience.getSettings();
+    Convenience.initTranslations();
 }

@@ -5,22 +5,40 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Messaging Menu Gnome-Shell extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-03 17:36+0100\n"
-"PO-Revision-Date: 2012-11-03 17:38+0100\n"
-"Last-Translator: Andreas Wilhelm <screenfreeze.net@gmail.com>\n"
-"Language-Team: German\n"
+"POT-Creation-Date: 2013-05-17 16:10+0200\n"
+"PO-Revision-Date: 2013-05-17 16:13+0100\n"
+"Last-Translator: Jonatan Zeidler <jonatan_zeidler@hotmail.de>\n"
+"Language-Team: German <jonatan_zeidler@gmx.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
-#: extension.js:26
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Benachrichtigungsfarbe (Hex):"
+
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Epost-Benachrichtigung:"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Chat-Benachrichtigung:"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Micro Blogging Notification:"
+
+#: extension.js:63
 msgid "Compose New Message"
 msgstr "Neue Nachricht erstellen"
 
-#: extension.js:27
+#: extension.js:64
 msgid "Contacts"
 msgstr "Kontakte"
