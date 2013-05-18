@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Messaging Menu Gnome-Shell extension\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Messaging Menu Version 4\n"
+"Report-Msgid-Bugs-To: https://github.com/screenfreeze/messagingmenu/issues\n"
 "POT-Creation-Date: 2013-05-17 16:10+0200\n"
 "PO-Revision-Date: 2013-05-17 16:13+0100\n"
 "Last-Translator: Jonatan Zeidler <jonatan_zeidler@hotmail.de>\n"
