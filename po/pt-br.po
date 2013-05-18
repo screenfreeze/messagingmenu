@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Messaging Menu Version 4\n"
 "Report-Msgid-Bugs-To: https://github.com/screenfreeze/messagingmenu/issues\n"
 "POT-Creation-Date: 2012-11-03 17:36+0100\n"
 "PO-Revision-Date: 2013-05-02 19:15+0100\n"
