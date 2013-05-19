@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Messaging Menu Version 4\n"
+"Report-Msgid-Bugs-To: https://github.com/screenfreeze/messagingmenu/issues\n"
 "POT-Creation-Date: 2013-02-11 23:18+0000\n"
-"PO-Revision-Date: 2013-02-19 12:39+0000\n"
+"PO-Revision-Date: 2013-05-18 15:20+0200\n"
 "Last-Translator: Siôn Le Roux <sion@sionleroux.com>\n"
 "Language-Team: Hungarian\n"
 "Language: hu\n"
@@ -17,10 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: extension.js:26
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Értesítési szín (Hex):"
+
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Email értesítés:"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Chat értesítés:"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Mikro-blogging értesítés:"
+
+#: extension.js:63
 msgid "Compose New Message"
 msgstr "Új üzenet írása"
 
-#: extension.js:27
+#: extension.js:64
 msgid "Contacts"
 msgstr "Kapcsolatok"
