@@ -294,24 +294,12 @@ function _updateMessageStatus() {
 	// get all Messages
 	let items;
 
-	// GS 3.4 Support
-	if (Main.messageTray._summaryItems != undefined) { items = Main.messageTray._summaryItems; }
-	// GS 3.6 Support
-	else {
-		try{
- 			items = Main.messageTray.getSummeryItems();
-		}
-		catch(e){
-			// GS 3.8 Support
- 			items = Main.messageTray.getSources();
-		}
-	}
+    items = Main.messageTray._summaryItems;
 
 	let newMessage = false;
 	for (let i = 0; i < items.length; i++) {
 		let source;
-		if (items[i].source != undefined) {source = items[i].source;}
-		else {source = items[i];} // GS 3.8
+		source = items[i].source;
 		
 		// check for new Chat Messages
 		if (settings.get_boolean('notify-chat') && source.isChat && !source.isMuted && unseenMessageCheck(source)) { newMessage = true; }
@@ -368,19 +356,29 @@ function _updateMessageStatus() {
 
 function unseenMessageCheck(source) {
 	let unseen = false;
-	if (source.unseenCount == undefined) {
-		unseen = (source._counterBin.visible &&
-        source._counterLabel.get_text() != '0');
-	}
-	else {
-		unseen = source.unseenCount > 0;	
-	}
+
+	unseen = (source._counterBin.visible && source._counterLabel.get_text() != '0');
 
 	return unseen;
 }
 
-function customUpdateCount() {
-  originalUpdateCount.call(this);
+// GS 3.4
+function _pushNotification(notification) {
+  originalPushNotification.call(this, notification);
+    try {
+        _updateMessageStatus();
+    }
+    catch (err) {
+        /* If the extension is broken I don't want to break everything.
+         * We just catch the extension, print it and go on */
+        logError (err, err);
+    }
+}
+
+// GS 3.4
+function customSetCount(count, visible) {
+  originalSetCount.call(this, count, visible);
+
     try {
         _updateMessageStatus();
     }
@@ -389,26 +387,6 @@ function customUpdateCount() {
          * We just catch the extension, print it and go on */
         logError (err, err);
     }  
-}
-
-// GS 3.4
-function _pushNotification(notification) {
-  originalPushNotification.call(this, notification);
-
-  _updateMessageStatus();
-}
-
-// GS 3.4
-function _setCount(count, visible) {
-  originalSetCount.call(this, count, visible);
-
-  _updateMessageStatus();
-}
-
-function _destroy() {
-  originalDestroy.call(this);
-  _updateMessageStatus();
-
 }
 
 function init(extensionMeta) {
@@ -420,10 +398,8 @@ function init(extensionMeta) {
 
 let _indicator;
 let settings;
-let originalUpdateCount;
 let originalPushNotification;
 let originalSetCount;
-let originalDestroy;
 let originalStyle;
 let iconChanged = false;
 let availableNotifiers = new Array ();
@@ -433,27 +409,18 @@ let iconBox;
 function enable() {
     _indicator = new MessageMenu;
 
-    originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
-    MessageTray.SourceActor.prototype._updateCount = customUpdateCount;
+	originalSetCount = MessageTray.Source.prototype._setCount;
+	originalPushNotification = MessageTray.Source.prototype.pushNotification;
+    MessageTray.Source.prototype._setCount = customSetCount;
+	MessageTray.Source.prototype.pushNotification = _pushNotification;
 
-		//GS 3.4 Support
-    if (Main.panel.statusArea != undefined) {  //GS 3.6+
-		statusArea =  Main.panel.statusArea;
-	}
-    else {  // GS 3.4
-		statusArea =  Main.panel._statusArea;
-	}
-    
+	statusArea =  Main.panel._statusArea;    
     Main.panel.addToStatusArea('messageMenu', _indicator,1);
-	
-	//GS 3.4 Support
-    if (statusArea.messageMenu._box != undefined) { iconBox =  statusArea.messageMenu._box; }
-    else { iconBox = statusArea.messageMenu._iconActor; }
+    iconBox = statusArea.messageMenu._iconActor;
 
     originalStyle = iconBox.get_style();
 }
 
 function disable() {
-    MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
     _indicator.destroy();
 }
