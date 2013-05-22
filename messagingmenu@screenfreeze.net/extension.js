@@ -294,17 +294,12 @@ function _updateMessageStatus() {
 	// get all Messages
 	let items;
 
-	// GS 3.4 Support
-	if (Main.messageTray._summaryItems != undefined) { items = Main.messageTray._summaryItems; }
-	// GS 3.6 Support
-	else {
-		try{
- 			items = Main.messageTray.getSummeryItems();
-		}
-		catch(e){
-			// GS 3.8 Support
- 			items = Main.messageTray.getSources();
-		}
+	try{
+		items = Main.messageTray.getSummeryItems();
+	}
+	catch(e){
+		// GS 3.8 Support
+		items = Main.messageTray.getSources();
 	}
 
 	let newMessage = false;
@@ -391,26 +386,6 @@ function customUpdateCount() {
     }  
 }
 
-// GS 3.4
-function _pushNotification(notification) {
-  originalPushNotification.call(this, notification);
-
-  _updateMessageStatus();
-}
-
-// GS 3.4
-function _setCount(count, visible) {
-  originalSetCount.call(this, count, visible);
-
-  _updateMessageStatus();
-}
-
-function _destroy() {
-  originalDestroy.call(this);
-  _updateMessageStatus();
-
-}
-
 function init(extensionMeta) {
     Convenience.initTranslations();
     settings = Convenience.getSettings();
@@ -421,9 +396,6 @@ function init(extensionMeta) {
 let _indicator;
 let settings;
 let originalUpdateCount;
-let originalPushNotification;
-let originalSetCount;
-let originalDestroy;
 let originalStyle;
 let iconChanged = false;
 let availableNotifiers = new Array ();
@@ -436,19 +408,11 @@ function enable() {
     originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
     MessageTray.SourceActor.prototype._updateCount = customUpdateCount;
 
-		//GS 3.4 Support
-    if (Main.panel.statusArea != undefined) {  //GS 3.6+
-		statusArea =  Main.panel.statusArea;
-	}
-    else {  // GS 3.4
-		statusArea =  Main.panel._statusArea;
-	}
+    statusArea =  Main.panel.statusArea;
     
     Main.panel.addToStatusArea('messageMenu', _indicator,1);
 	
-	//GS 3.4 Support
-    if (statusArea.messageMenu._box != undefined) { iconBox =  statusArea.messageMenu._box; }
-    else { iconBox = statusArea.messageMenu._iconActor; }
+    iconBox =  statusArea.messageMenu._box;
 
     originalStyle = iconBox.get_style();
 }
