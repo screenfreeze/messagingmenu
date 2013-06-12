@@ -1,0 +1,43 @@
+# Turkish translation for Messaging Menu package
+# Copyright (C) 2013 Messaging Menu's COPYRIGHT HOLDER
+# This file is distributed under the same license as the Messaging Menu package.
+# Osman Karagöz <osmank3@gmail.com>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Messaging Menu Version 4\n"
+"Report-Msgid-Bugs-To: https://github.com/screenfreeze/messagingmenu/issues\n"
+"POT-Creation-Date: 2013-05-17 16:10+0200\n"
+"PO-Revision-Date: 2013-06-12 14:57+0200\n"
+"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"Language-Team: Turkish <LL@li.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Bildirim Rengi (Hex):"
+
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Eposta Bildirimi:"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Sohbet Bildirimi:"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Mikroblog Bildirimi:"
+
+#: extension.js:63
+msgid "Compose New Message"
+msgstr "Yeni İleti Oluştur"
+
+#: extension.js:64
+msgid "Contacts"
+msgstr "Kişiler"
