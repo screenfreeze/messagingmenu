@@ -295,7 +295,7 @@ function _updateMessageStatus() {
 	let items;
 
 	try{
-		items = Main.messageTray.getSummeryItems();
+		items = Main.messageTray.getSummaryItems();
 	}
 	catch(e){
 		// GS 3.8 Support
