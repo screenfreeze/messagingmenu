@@ -39,10 +39,10 @@ const MessageMenuItem = new Lang.Class({
 	this._app = app;
 
 	this.label = new St.Label({ text:app.get_name(), style_class: 'program-label' });
-	this.addActor(this.label);
+	this.actor.add_child(this.label);
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
-	this.addActor(this._icon, { align: St.Align.END, span: -1 });
+	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
 	
     },
 
@@ -55,10 +55,16 @@ const MessageMenuItem = new Lang.Class({
 
 const MessageMenu = new Lang.Class({
     Name: 'MessageMenu.MessageMenu',
-    Extends: PanelMenu.SystemStatusButton,
+    Extends: PanelMenu.Button,
 
     _init: function() {
-        this.parent('mymail-symbolic');
+        this.parent(0.0, "MessageMenu");
+        let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
+        let icon = new St.Icon({ icon_name: 'mymail-symbolic',
+                                 style_class: 'system-status-icon' });
+
+        hbox.add_child(icon);
+        this.actor.add_child(hbox);
 
 		this.new_msg_string = _("Compose New Message");
         this.contacts_string = _("Contacts");
@@ -412,7 +418,7 @@ function enable() {
     
     Main.panel.addToStatusArea('messageMenu', _indicator,1);
 	
-    iconBox =  statusArea.messageMenu._box;
+    iconBox =  statusArea.messageMenu.actor;
 
     originalStyle = iconBox.get_style();
 }
