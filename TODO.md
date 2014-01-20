@@ -1,0 +1,5 @@
+# TODO
+
+ - [X] change Indicator Color when Message arrives
+ - [ ] show number of unread Mails in Menu
+ - [ ] show chat nickname
