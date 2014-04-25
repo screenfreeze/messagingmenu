@@ -21,69 +21,69 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [
-    "skype",
-    "pidgin",
-    "empathy",
-    "fedora-empathy",
-    "xchat",
-    "hexchat",
-    "kopete",
-    "kmess",
-    "gajim",
-    "emesene",
-    "qutim",
-    "amsn",
-    "openfetion",
-    "org.gnome.Polari"
+	"skype",
+	"pidgin",
+	"empathy",
+	"fedora-empathy",
+	"xchat",
+	"hexchat",
+	"kopete",
+	"kmess",
+	"gajim",
+	"emesene",
+	"qutim",
+	"amsn",
+	"openfetion",
+	"org.gnome.Polari"
 ];
 let compatible_MBlogs = [
-    "gwibber",
-    "fedora-gwibber",
-    "pino",
-    "hotot",
-    "turpial",
-    "twitux",
-    "gtwitter",
-    "qwit",
-    "mitter",
-    "polly",
-    "birdie",
-    "friends-app",
-    "gfeedline",
-    "corebird",
-    "heybuddy"
+	"gwibber",
+	"fedora-gwibber",
+	"pino",
+	"hotot",
+	"turpial",
+	"twitux",
+	"gtwitter",
+	"qwit",
+	"mitter",
+	"polly",
+	"birdie",
+	"friends-app",
+	"gfeedline",
+	"corebird",
+	"heybuddy"
 ];
 let compatible_Emails = [
-    "thunderbird",
-    "mozilla-thunderbird",
-    "evolution",
-    "postler",
-    "claws-mail",
-    "KMail2",
-    "gnome-gmail",
-    "geary",
-    "icedove"
+	"thunderbird",
+	"mozilla-thunderbird",
+	"evolution",
+	"postler",
+	"claws-mail",
+	"KMail2",
+	"gnome-gmail",
+	"geary",
+	"icedove"
 ];
 
 // Must be their Notificationtitle, because lookup_app doesnt work here
 let compatible_hidden_Email_Notifiers = [
-    "Mailnag",
-    "Thunderbird",
-    "gmail-notify",
-    "mail-notification"
+	"Mailnag",
+	"Thunderbird",
+	"gmail-notify",
+	"mail-notification"
 ];
 let compatible_hidden_MBlog_Notifiers = [
-    "friends",
-    "gwibber",
-    "GFeedLine"
+	"friends",
+	"gwibber",
+	"GFeedLine"
 ];
 
 
 const MessageMenuItem = new Lang.Class({
-    Name: 'MessageMenu.MessageMenuItem',
-    Extends: PopupMenu.PopupBaseMenuItem,
+	Name: 'MessageMenu.MessageMenuItem',
+	Extends: PopupMenu.PopupBaseMenuItem,
 
-    _init: function(app) {
+	_init: function(app) {
 	this.parent();
 	this._app = app;
 
@@ -92,31 +92,31 @@ const MessageMenuItem = new Lang.Class({
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
 	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
-	
-    },
 
-    activate: function(event) {
+	},
+
+	activate: function(event) {
 
 	this._app.activate_full(-1, event.get_time());
 	this.parent(event);
-    }
+	}
 });
 
 const MessageMenu = new Lang.Class({
-    Name: 'MessageMenu.MessageMenu',
-    Extends: PanelMenu.Button,
+	Name: 'MessageMenu.MessageMenu',
+	Extends: PanelMenu.Button,
 
-    _init: function() {
-        this.parent(0.0, "MessageMenu");
-        let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
-        let icon = new St.Icon({ icon_name: 'mymail-symbolic',
-                                 style_class: 'system-status-icon' });
+	_init: function() {
+		this.parent(0.0, "MessageMenu");
+		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
+		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
+								 style_class: 'system-status-icon' });
 
-        hbox.add_child(icon);
-        this.actor.add_child(hbox);
+		hbox.add_child(icon);
+		this.actor.add_child(hbox);
 
 		this.new_msg_string = _("Compose New Message");
-        this.contacts_string = _("Contacts");
+		this.contacts_string = _("Contacts");
 
 		this._availableEmails = new Array ();
 		this._availableChats = new Array ();
@@ -128,14 +128,14 @@ const MessageMenu = new Lang.Class({
 		this._claws = null;
 		this._evolution = null;
 		this._geary = null;
-		
+
 		this._getApps();
-        this._buildMenu();
-    },
+		this._buildMenu();
+	},
 
 	_buildMenu: function()
-	{    			
-		
+	{
+
 		// insert Email Clients into menu
 
 		// Special Evolution Menu Entry
@@ -143,9 +143,9 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._evolution);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			this.con =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
-			
+			this.comp = new PopupMenu.PopupMenuItem("		 "+this.new_msg_string+"...");
+			this.con =	new PopupMenu.PopupMenuItem("		 "+this.contacts_string);
+
 			this.con.connect('activate', Lang.bind(this, this._evolutionContacts));
 			this.comp.connect('activate', Lang.bind(this, this._evolutionCompose));
 			this.menu.addMenuItem(this.comp);
@@ -157,12 +157,12 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._thunderbird);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp_tb = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			this.con_tb =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
-			
+			this.comp_tb = new PopupMenu.PopupMenuItem("		"+this.new_msg_string+"...");
+			this.con_tb =  new PopupMenu.PopupMenuItem("		"+this.contacts_string);
+
 			this.comp_tb.connect('activate', Lang.bind(this, this._TbCompose));
 			this.menu.addMenuItem(this.comp_tb);
-			
+
 			this.con_tb.connect('activate', Lang.bind(this, this._TbContacts));
 			this.menu.addMenuItem(this.con_tb);
 		}
@@ -172,12 +172,12 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._icedove);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp_icedove = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			this.con_icedove =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
-			
+			this.comp_icedove = new PopupMenu.PopupMenuItem("		 "+this.new_msg_string+"...");
+			this.con_icedove =	new PopupMenu.PopupMenuItem("		 "+this.contacts_string);
+
 			this.comp_icedove.connect('activate', Lang.bind(this, this._icedoveCompose));
 			this.menu.addMenuItem(this.comp_icedove);
-			
+
 			this.con_icedove.connect('activate', Lang.bind(this, this._icedoveContacts));
 			this.menu.addMenuItem(this.con_icedove);
 		}
@@ -187,8 +187,8 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._kmail);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			
+			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+
 			this.comp.connect('activate', Lang.bind(this, this._kmailCompose));
 			this.menu.addMenuItem(this.comp);
 		}
@@ -197,9 +197,9 @@ const MessageMenu = new Lang.Class({
 		if (this._claws != null) {
 			let newLauncher = new MessageMenuItem(this._claws);
 			this.menu.addMenuItem(newLauncher);
-		
-			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			
+
+			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+
 			this.comp.connect('activate', Lang.bind(this, this._clawsCompose));
 			this.menu.addMenuItem(this.comp);
 		}
@@ -208,9 +208,9 @@ const MessageMenu = new Lang.Class({
 		if (this._geary != null) {
 			let newLauncher = new MessageMenuItem(this._geary);
 			this.menu.addMenuItem(newLauncher);
-		
-			this.comp =  new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
-			
+
+			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+
 			this.comp.connect('activate', Lang.bind(this, this._gearyCompose));
 			this.menu.addMenuItem(this.comp);
 		}
@@ -234,7 +234,7 @@ const MessageMenu = new Lang.Class({
 		for (var l=0; l<this._availableMBlogs.length; l++) {
 			let newLauncher = new MessageMenuItem(this._availableMBlogs[l]);
 			this.menu.addMenuItem(newLauncher);
-		}	
+		}
 
 	},
 
@@ -244,7 +244,7 @@ const MessageMenu = new Lang.Class({
 		for (var p=0; p<compatible_Emails.length; p++) {
 			let app_name = compatible_Emails[p];
 			let app = appsys.lookup_app(app_name+'.desktop');
-		
+
 			if (app != null) {
 				// filter Apps with special Menus
 				if (app_name == 'thunderbird' || app_name == 'mozilla-thunderbird') {
@@ -270,14 +270,14 @@ const MessageMenu = new Lang.Class({
 				}
 				if (settings.get_boolean('notify-email')) {
 					availableNotifiers.push(app);
-				}			
+				}
 			}
 		}
 		//get available Chat Apps
 		for (var o=0; o<compatible_Chats.length; o++) {
 			let app_name = compatible_Chats[o];
 			let app = appsys.lookup_app(app_name+'.desktop');
-		
+
 			if (app != null) {
 				this._availableChats.push(app);
 				if (settings.get_boolean('notify-chat')) {
@@ -289,7 +289,7 @@ const MessageMenu = new Lang.Class({
 		for (var u=0; u<compatible_MBlogs.length; u++) {
 			let app_name = compatible_MBlogs[u];
 			let app = appsys.lookup_app(app_name+'.desktop');
-		
+
 			if (app != null) {
 				this._availableMBlogs.push(app);
 				if (settings.get_boolean('notify-mblogging')) {
@@ -332,16 +332,16 @@ const MessageMenu = new Lang.Class({
 		Main.Util.trySpawnCommandLine('evolution -c contacts');
 	},
 
-	_gearyCompose: function() {		
+	_gearyCompose: function() {
 		Main.Util.trySpawnCommandLine('geary');
 		//geary 0.3.1 workaround (geary must be started)
-		imports.mainloop.timeout_add(3000,function() {  Main.Util.trySpawnCommandLine('geary mailto:'); });
+		imports.mainloop.timeout_add(3000,function() {	Main.Util.trySpawnCommandLine('geary mailto:'); });
 	},
 
-    destroy: function() {
+	destroy: function() {
 
-        this.parent();
-    },
+		this.parent();
+	},
 
 });
 
@@ -362,7 +362,7 @@ function _updateMessageStatus() {
 		let source;
 		if (items[i].source != undefined) {source = items[i].source;}
 		else {source = items[i];} // GS 3.8
-		
+
 		// check for new Chat Messages
 		if (settings.get_boolean('notify-chat') && source.isChat && !source.isMuted && unseenMessageCheck(source)) { newMessage = true; }
 		else if (source.app != null) {
@@ -372,18 +372,18 @@ function _updateMessageStatus() {
 				if (source.app.get_id() == app_id && unseenMessageCheck(source)) {
 					newMessage = true;
 				}
-			}	
+			}
 		}
 		else {
 			for (let k = 0; k < availableNotifiers.length; k++) {
-				let app_name = availableNotifiers[k].get_name();   //e.g. Thunderbird Mail			
+				let app_name = availableNotifiers[k].get_name();   //e.g. Thunderbird Mail
 				if (source.title == app_name && unseenMessageCheck(source) ) {
 					newMessage = true;
 				}
 			}
 			if (settings.get_boolean('notify-email')) {
 				for (let l = 0; l < compatible_hidden_Email_Notifiers.length; l++) {
-					let app_name = compatible_hidden_Email_Notifiers[l];   //e.g. Mailnag			
+					let app_name = compatible_hidden_Email_Notifiers[l];   //e.g. Mailnag
 					if (source.title == app_name && unseenMessageCheck(source) ) {
 						newMessage = true;
 					}
@@ -392,7 +392,7 @@ function _updateMessageStatus() {
 
 			if (settings.get_boolean('notify-mblogging')) {
 				for (let m = 0; m < compatible_hidden_MBlog_Notifiers.length; m++) {
-					let app_name = compatible_hidden_MBlog_Notifiers[m];   //e.g. friends			
+					let app_name = compatible_hidden_MBlog_Notifiers[m];   //e.g. friends
 					if (source.title == app_name && unseenMessageCheck(source) ) {
 						newMessage = true;
 					}
@@ -400,7 +400,7 @@ function _updateMessageStatus() {
 			}
 		}
 	}
-	
+
 	// Change Status Icon in Panel
 	if (newMessage && !iconChanged) {
 		//let messMenu = statusArea.messageMenu;
@@ -412,7 +412,7 @@ function _updateMessageStatus() {
 	else if (!newMessage && iconChanged) {
 		//let messMenu = statusArea.messageMenu;
 		iconBox.set_style(originalStyle);
-		iconChanged = false;	
+		iconChanged = false;
 	}
 }
 
@@ -420,10 +420,10 @@ function unseenMessageCheck(source) {
 	let unseen = false;
 	if (source.unseenCount == undefined) {
 		unseen = (source._counterBin.visible &&
-        source._counterLabel.get_text() != '0');
+		source._counterLabel.get_text() != '0');
 	}
 	else {
-		unseen = source.unseenCount > 0;	
+		unseen = source.unseenCount > 0;
 	}
 
 	return unseen;
@@ -431,21 +431,21 @@ function unseenMessageCheck(source) {
 
 function customUpdateCount() {
   originalUpdateCount.call(this);
-    try {
-        _updateMessageStatus();
-    }
-    catch (err) {
-        /* If the extension is broken I don't want to break everything.
-         * We just catch the extension, print it and go on */
-        logError (err, err);
-    }  
+	try {
+		_updateMessageStatus();
+	}
+	catch (err) {
+		/* If the extension is broken I don't want to break everything.
+		 * We just catch the extension, print it and go on */
+		logError (err, err);
+	}
 }
 
 function init(extensionMeta) {
-    Convenience.initTranslations();
-    settings = Convenience.getSettings();
-    let theme = imports.gi.Gtk.IconTheme.get_default();
-    theme.append_search_path(extensionMeta.path + "/icons");
+	Convenience.initTranslations();
+	settings = Convenience.getSettings();
+	let theme = imports.gi.Gtk.IconTheme.get_default();
+	theme.append_search_path(extensionMeta.path + "/icons");
 }
 
 let _indicator;
@@ -458,21 +458,21 @@ let statusArea;
 let iconBox;
 
 function enable() {
-    _indicator = new MessageMenu;
+	_indicator = new MessageMenu;
 
-    originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
-    MessageTray.SourceActor.prototype._updateCount = customUpdateCount;
+	originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
+	MessageTray.SourceActor.prototype._updateCount = customUpdateCount;
 
-    statusArea =  Main.panel.statusArea;
-    
-    Main.panel.addToStatusArea('messageMenu', _indicator,1);
-	
-    iconBox =  statusArea.messageMenu.actor;
+	statusArea =  Main.panel.statusArea;
 
-    originalStyle = iconBox.get_style();
+	Main.panel.addToStatusArea('messageMenu', _indicator,1);
+
+	iconBox =  statusArea.messageMenu.actor;
+
+	originalStyle = iconBox.get_style();
 }
 
 function disable() {
-    MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
-    _indicator.destroy();
+	MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
+	_indicator.destroy();
 }
