@@ -27,6 +27,7 @@ let compatible_Chats = [
 	"fedora-empathy",
 	"xchat",
 	"hexchat",
+	"konversation",
 	"kopete",
 	"kmess",
 	"gajim",
