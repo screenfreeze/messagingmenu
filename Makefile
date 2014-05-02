@@ -1,11 +1,16 @@
-appdir=messagingmenu@screenfreeze.net
-appname=gnome-shell-extensions
+UUID=messagingmenu@screenfreeze.net
+NAME=gnome-shell-extensions
 
 MSGLANGS=$(notdir $(wildcard po/*po))
-MSGOBJS=$(addprefix $(appdir)/locale/,$(MSGLANGS:.po=/LC_MESSAGES/$(appname).mo))
+MSGOBJS=$(addprefix $(UUID)/locale/,$(MSGLANGS:.po=/LC_MESSAGES/$(NAME).mo))
+
+all: locales schemas
 
 locales: $(MSGOBJS)
 
-$(appdir)/locale/%/LC_MESSAGES/$(appname).mo: po/%.po
+$(UUID)/locale/%/LC_MESSAGES/$(NAME).mo: po/%.po
 	mkdir -p $(dir $@)
 	msgfmt -c -o $@ po/$*.po
+
+schemas: $(UUID)/schemas/
+	glib-compile-schemas $(UUID)/schemas
