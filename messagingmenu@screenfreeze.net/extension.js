@@ -1,3 +1,9 @@
+/**
+ * Messaging Menu - A Messaging Menu for the Gnome Shell
+ * Copyright (C) 2012 Andreas Wilhelm
+ * See LICENSE.txt for details
+ */
+
 const Gdk = imports.gi.Gdk;
 const GLib = imports.gi.GLib;
 const Lang = imports.lang;
