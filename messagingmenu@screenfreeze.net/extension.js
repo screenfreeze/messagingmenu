@@ -21,7 +21,7 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [ "skype" , "pidgin", "empathy", "fedora-empathy", "xchat", "hexchat", "kmess", "gajim", "emesene", "qutim", "amsn", "openfetion", "org.gnome.Polari" ];
-let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly", "birdie", "friends-app", "gfeedline", "corebird", "heybuddy" ];
+let compatible_MBlogs = [ "gwibber", "fedora-gwibber",  "pino", "hotot", "turpial", "twitux", "gtwitter",  "qwit", "mitter", "polly", "birdie", "friends-app", "gfeedline", "corebird", "org.baedert.corebird", "heybuddy" ];
 let compatible_Emails = [ "thunderbird", "mozilla-thunderbird", "evolution", "postler", "claws-mail", "KMail2", "gnome-gmail", "geary", "icedove" ];
 
 // Must be their Notificationtitle, because lookup_app doesnt work here
