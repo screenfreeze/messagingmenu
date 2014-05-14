@@ -58,6 +58,7 @@ let compatible_MBlogs = [
 	"friends-app",
 	"gfeedline",
 	"corebird",
+	"org.baedert.corebird",
 	"heybuddy"
 ];
 let compatible_Emails = [
