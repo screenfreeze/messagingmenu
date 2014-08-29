@@ -41,7 +41,10 @@ let compatible_Chats = [
 	"qutim",
 	"amsn",
 	"openfetion",
-	"org.gnome.Polari"
+	"org.gnome.Polari",
+	"qtox",
+	"utox",
+	"venom"
 ];
 let compatible_MBlogs = [
 	"gwibber",
