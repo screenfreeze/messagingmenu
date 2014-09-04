@@ -27,66 +27,69 @@ const Convenience = Me.imports.convenience;
 const ICON_SIZE = 22;
 
 let compatible_Chats = [
-	"skype",
-	"pidgin",
+	"amsn",
+	"emesene",
 	"empathy",
 	"fedora-empathy",
-	"xchat",
+	"gajim",
 	"hexchat",
+	"kde4-kmess",
 	"kde4-konversation",
 	"kde4-kopete",
-	"kde4-kmess",
-	"gajim",
-	"emesene",
-	"qutim",
-	"amsn",
 	"openfetion",
 	"org.gnome.Polari",
+	"pidgin",
 	"qtox",
+	"qutim",
+	"skype",
 	"utox",
-	"venom"
+	"venom",
+	"xchat"
 ];
+
 let compatible_MBlogs = [
-	"gwibber",
-	"fedora-gwibber",
-	"pino",
-	"hotot",
-	"turpial",
-	"twitux",
-	"gtwitter",
-	"qwit",
-	"mitter",
-	"polly",
 	"birdie",
+	"corebird",
+	"fedora-gwibber",
 	"friends-app",
 	"gfeedline",
-	"corebird",
+	"gtwitter",
+	"gwibber",
+	"heybuddy",
+	"hotot",
+	"mitter",
 	"org.baedert.corebird",
-	"heybuddy"
+	"pino",
+	"polly",
+	"qwit",
+	"turpial",
+	"twitux"
 ];
+
 let compatible_Emails = [
-	"thunderbird",
-	"mozilla-thunderbird",
-	"evolution",
-	"postler",
 	"claws-mail",
-	"kde4-KMail2",
-	"gnome-gmail",
+	"evolution",
 	"geary",
-	"icedove"
+	"gnome-gmail",
+	"icedove",
+	"kde4-KMail2",
+	"mozilla-thunderbird",
+	"postler",
+	"thunderbird"
 ];
 
 // Must be their Notificationtitle, because lookup_app doesnt work here
 let compatible_hidden_Email_Notifiers = [
-	"Mailnag",
-	"Thunderbird",
 	"gmail-notify",
-	"mail-notification"
+	"mail-notification",
+	"Mailnag",
+	"Thunderbird"
 ];
+
 let compatible_hidden_MBlog_Notifiers = [
 	"friends",
-	"gwibber",
-	"GFeedLine"
+	"GFeedLine",
+	"gwibber"
 ];
 
 
