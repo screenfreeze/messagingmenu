@@ -2,7 +2,8 @@
 "shell-version": [
 	"3.9",
 	"3.10",
-	"3.12"
+	"3.12",
+	"3.14.1"
 ],
 "uuid": "messagingmenu@screenfreeze.net",
 "name": "Messaging Menu",
