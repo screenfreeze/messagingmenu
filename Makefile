@@ -1,5 +1,7 @@
 #=============================================================================
 UUID=messagingmenu@screenfreeze.net
+# GitHub doesn't accept @ in filesnames:
+GHID=messagingmenu.screenfreeze.net
 NAME=gnome-shell-extensions
 FILES=metadata.json *.js stylesheet.css schemas icons locale/**/
 INSTALLDIR=$(HOME)/.local/share/gnome-shell/extensions
@@ -11,12 +13,12 @@ MSGLANGS=$(notdir $(wildcard po/*po))
 MSGOBJS=$(addprefix $(UUID)/locale/,$(MSGLANGS:.po=/LC_MESSAGES/$(NAME).mo))
 
 prod: zip
-	md5sum $(UUID).zip > $(UUID).zip.md5
-	gpg --detach-sign --use-agent --yes $(UUID).zip
+	md5sum $(GHID).zip > $(GHID).zip.md5
+	gpg --detach-sign --use-agent --yes $(GHID).zip
 
 install: zip
 	mkdir -p $(INSTALLDIR)/$(UUID)
-	unzip $(UUID).zip -d $(INSTALLDIR)
+	unzip $(GHID).zip -d $(INSTALLDIR)
 
 uninstall:
 	rm -r $(INSTALLDIR)/$(UUID)
@@ -24,7 +26,7 @@ uninstall:
 all: clean locales schemas
 
 clean:
-	rm -f $(UUID).zip* $(UUID)/schemas/gschemas.compiled
+	rm -f $(GHID).zip* $(UUID)/schemas/gschemas.compiled
 	rm -rf $(UUID)/locale/**/
 
 locales: $(MSGOBJS)
@@ -37,4 +39,4 @@ schemas: $(UUID)/schemas/
 	glib-compile-schemas $(UUID)/schemas
 
 zip: all
-	zip -rq $(UUID).zip $(FILES:%=$(UUID)/%)
+	cd $(UUID); zip -rq ../$(GHID).zip $(FILES:%=./%)
