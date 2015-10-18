@@ -157,8 +157,8 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._evolution);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp = new PopupMenu.PopupMenuItem("		 "+this.new_msg_string+"...");
-			this.con =	new PopupMenu.PopupMenuItem("		 "+this.contacts_string);
+			this.comp = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
+			this.con = new PopupMenu.PopupMenuItem(this.contacts_string, {style_class: 'special-action'});
 
 			this.con.connect('activate', Lang.bind(this, this._evolutionContacts));
 			this.comp.connect('activate', Lang.bind(this, this._evolutionCompose));
@@ -171,8 +171,8 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._thunderbird);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp_tb = new PopupMenu.PopupMenuItem("		"+this.new_msg_string+"...");
-			this.con_tb =  new PopupMenu.PopupMenuItem("		"+this.contacts_string);
+			this.comp_tb = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
+			this.con_tb = new PopupMenu.PopupMenuItem(this.contacts_string, {style_class: 'special-action'});
 
 			this.comp_tb.connect('activate', Lang.bind(this, this._TbCompose));
 			this.menu.addMenuItem(this.comp_tb);
@@ -186,8 +186,8 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._icedove);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp_icedove = new PopupMenu.PopupMenuItem("		 "+this.new_msg_string+"...");
-			this.con_icedove =	new PopupMenu.PopupMenuItem("		 "+this.contacts_string);
+			this.comp_icedove = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
+			this.con_icedove = new PopupMenu.PopupMenuItem(this.contacts_string, {style_class: 'special-action'});
 
 			this.comp_icedove.connect('activate', Lang.bind(this, this._icedoveCompose));
 			this.menu.addMenuItem(this.comp_icedove);
@@ -201,7 +201,7 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._kmail);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+			this.comp = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
 
 			this.comp.connect('activate', Lang.bind(this, this._kmailCompose));
 			this.menu.addMenuItem(this.comp);
@@ -212,7 +212,7 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._claws);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+			this.comp = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
 
 			this.comp.connect('activate', Lang.bind(this, this._clawsCompose));
 			this.menu.addMenuItem(this.comp);
@@ -223,7 +223,7 @@ const MessageMenu = new Lang.Class({
 			let newLauncher = new MessageMenuItem(this._geary);
 			this.menu.addMenuItem(newLauncher);
 
-			this.comp =  new PopupMenu.PopupMenuItem("		  "+this.new_msg_string+"...");
+			this.comp = new PopupMenu.PopupMenuItem(this.new_msg_string+"...", {style_class: 'special-action'});
 
 			this.comp.connect('activate', Lang.bind(this, this._gearyCompose));
 			this.menu.addMenuItem(this.comp);

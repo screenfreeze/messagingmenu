@@ -6,3 +6,7 @@
 	font-weight: bold;
 	min-width: 170px;
 }
+
+.popup-menu-item.special-action {
+	border-left: 2em;
+}
