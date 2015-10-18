@@ -17,10 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: extension.js:26
-msgid "Compose New Message"
-msgstr "Composer un nouveau Message"
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Couleur de la Notification (Hex):"
 
-#: extension.js:27
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Email de Notification:"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Notification de Chat"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Notification Microblog"
+
+#: extension.js:63
+msgid "Compose New Message"
+msgstr "Composer un Nouveau Message"
+
+#: extension.js:64
 msgid "Contacts"
 msgstr "Contacts"

@@ -13,14 +13,30 @@ msgstr ""
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: extension.js:26
-msgid "Compose New Message"
-msgstr "Redactar mensaje nuevo"
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Color de la Notificación (Hex):"
 
-#: extension.js:27
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Correo de Notificación:"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Notificación Chat:"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Notificación Microblog:"
+
+#: extension.js:63
+msgid "Compose New Message"
+msgstr "Crear un Nuevo Mensaje"
+
+#: extension.js:64
 msgid "Contacts"
 msgstr "Contactos"
