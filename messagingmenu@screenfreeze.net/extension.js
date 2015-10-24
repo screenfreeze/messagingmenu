@@ -44,6 +44,7 @@ let compatible_Chats = [
 	"skype",
 	"utox",
 	"venom",
+	"viber",
 	"xchat"
 ];
 
