@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/screenfreeze/messagingmenu/issues\n"
 "POT-Creation-Date: 2013-02-02 17:36+0100\n"
 "PO-Revision-Date: 2013-02-02 17:38+0100\n"
-"Last-Translator: Petr Izrael <petr.izrael@gmail.com>\n"
+"Last-Translator: Karel Mácha <karel.macha@karlitos.net>\n"
 "Language-Team: Czech\n"
 "Language: cz\n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2"
 
-#: extension.js:26
+#: prefs.js:17
+msgid "Notification Color (Hex):"
+msgstr "Barva upozornění (Hex)"
+
+#: prefs.js:40
+msgid "Email Notification:"
+msgstr "Upozornění na email"
+
+#: prefs.js:55
+msgid "Chat Notification:"
+msgstr "Upozornění na zprávu v chatu"
+
+#: prefs.js:70
+msgid "Micro Blogging Notification:"
+msgstr "Upozornění na příspěvek na micro-blogu"
+
+#: extension.js:63
 msgid "Compose New Message"
 msgstr "Vytvořit novou zprávu"
 
-#: extension.js:27
+#: extension.js:64
 msgid "Contacts"
 msgstr "Kontakty"
