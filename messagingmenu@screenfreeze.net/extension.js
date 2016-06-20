@@ -42,6 +42,7 @@ let compatible_Chats = [
 	"qtox",
 	"qutim",
 	"skype",
+	"slack",
 	"telegramdesktop",
 	"utox",
 	"venom",
