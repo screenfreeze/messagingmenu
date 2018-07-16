@@ -79,6 +79,7 @@ let compatible_Emails = [
 	"icedove",
 	"kde4-KMail2",
 	"mozilla-thunderbird",
+	"org.gnome.Geary",
 	"postler",
 	"thunderbird"
 ];
@@ -281,7 +282,7 @@ const MessageMenu = new Lang.Class({
 				else if (app_name == 'evolution') {
 					this._evolution = app;
 				}
-				else if (app_name == 'geary') {
+				else if (app_name == 'geary' || app_name == 'org.gnome.Geary') {
 					this._geary = app;
 				}
 				else {
