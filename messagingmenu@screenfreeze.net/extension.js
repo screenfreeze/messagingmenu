@@ -44,6 +44,7 @@ let compatible_Chats = [
 	"qtox",
 	"qutim",
 	"skype",
+	"skypeforlinux",
 	"slack",
 	"telegramdesktop",
 	"utox",
@@ -79,6 +80,7 @@ let compatible_Emails = [
 	"icedove",
 	"kde4-KMail2",
 	"mozilla-thunderbird",
+	"org.gnome.Evolution",
 	"org.gnome.Geary",
 	"postler",
 	"thunderbird"
@@ -279,7 +281,7 @@ const MessageMenu = new Lang.Class({
 				else if (app_name == 'claws-mail') {
 					this._claws = app;
 				}
-				else if (app_name == 'evolution') {
+				else if (app_name == 'evolution' || app_name == 'org.gnome.Evolution') {
 					this._evolution = app;
 				}
 				else if (app_name == 'geary' || app_name == 'org.gnome.Geary') {
