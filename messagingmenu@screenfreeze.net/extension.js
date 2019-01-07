@@ -39,6 +39,7 @@ let compatible_Chats = [
 	"kde4-konversation",
 	"kde4-kopete",
 	"openfetion",
+	"org.gnome.Fractal",
 	"org.gnome.Polari",
 	"pidgin",
 	"qtox",
