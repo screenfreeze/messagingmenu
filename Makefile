@@ -18,7 +18,7 @@ prod: zip
 
 install: zip
 	mkdir -p $(INSTALLDIR)/$(UUID)
-	unzip $(GHID).zip -d $(INSTALLDIR)
+	unzip $(GHID).zip -d $(INSTALLDIR)/$(UUID)
 
 uninstall:
 	rm -r $(INSTALLDIR)/$(UUID)
