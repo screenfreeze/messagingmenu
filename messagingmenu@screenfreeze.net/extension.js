@@ -39,6 +39,7 @@ let compatible_Chats = [
 	"kde4-konversation",
 	"kde4-kopete",
 	"openfetion",
+	"org.gnome.Fractal",
 	"org.gnome.Polari",
 	"pidgin",
 	"qtox",
@@ -101,12 +102,9 @@ let compatible_hidden_MBlog_Notifiers = [
 ];
 
 
-const MessageMenuItem = new Lang.Class({
-	Name: 'MessageMenu.MessageMenuItem',
-	Extends: PopupMenu.PopupBaseMenuItem,
-
-	_init: function(app) {
-	this.parent();
+const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.PopupBaseMenuItem {
+    constructor(app) {
+	super();
 	this._app = app;
 
 	this.label = new St.Label({ text:app.get_name(), style_class: 'program-label' });
@@ -115,21 +113,18 @@ const MessageMenuItem = new Lang.Class({
 	this._icon = app.create_icon_texture(ICON_SIZE);
 	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
 
-	},
+	}
 
-	activate: function(event) {
+    activate(event) {
 
 	this._app.activate_full(-1, event.get_time());
-	this.parent(event);
+	super.activate(event);
 	}
-});
+};
 
-const MessageMenu = new Lang.Class({
-	Name: 'MessageMenu.MessageMenu',
-	Extends: PanelMenu.Button,
-
-	_init: function() {
-		this.parent(0.0, "MessageMenu");
+const MessageMenu = class MessageMenu_MessageMenu extends PanelMenu.Button {
+    constructor() {
+		super(0.0, "MessageMenu");
 		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
 		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
 								 style_class: 'system-status-icon' });
@@ -153,10 +148,9 @@ const MessageMenu = new Lang.Class({
 
 		this._getApps();
 		this._buildMenu();
-	},
+	}
 
-	_buildMenu: function()
-	{
+    _buildMenu() {
 
 		// insert Email Clients into menu
 
@@ -258,9 +252,9 @@ const MessageMenu = new Lang.Class({
 			this.menu.addMenuItem(newLauncher);
 		}
 
-	},
+	}
 
-	_getApps: function() {
+    _getApps() {
 		let appsys = Shell.AppSystem.get_default();
 		//get available Email Apps
 		for (var p=0; p<compatible_Emails.length; p++) {
@@ -320,52 +314,51 @@ const MessageMenu = new Lang.Class({
 			}
 		}
 
-	},
+	}
 
-	_TbCompose: function() {
+    _TbCompose() {
 		Main.Util.trySpawnCommandLine('thunderbird -compose');
-	},
+	}
 
-	_TbContacts: function() {
+    _TbContacts() {
 		Main.Util.trySpawnCommandLine('thunderbird -addressbook');
-	},
+	}
 
-	_icedoveCompose: function() {
+    _icedoveCompose() {
 		Main.Util.trySpawnCommandLine('icedove -compose');
-	},
+	}
 
-	_icedoveContacts: function() {
+    _icedoveContacts() {
 		Main.Util.trySpawnCommandLine('icedove -addressbook');
-	},
+	}
 
-	_kmailCompose: function() {
+    _kmailCompose() {
 		Main.Util.trySpawnCommandLine('kmail -compose');
-	},
+	}
 
-	_clawsCompose: function() {
+    _clawsCompose() {
 		Main.Util.trySpawnCommandLine('claws-mail --compose');
-	},
+	}
 
-	_evolutionCompose: function() {
+    _evolutionCompose() {
 		Main.Util.trySpawnCommandLine('evolution mailto:');
-	},
+	}
 
-	_evolutionContacts: function() {
+    _evolutionContacts() {
 		Main.Util.trySpawnCommandLine('evolution -c contacts');
-	},
+	}
 
-	_gearyCompose: function() {
+    _gearyCompose() {
 		Main.Util.trySpawnCommandLine('geary');
 		//geary 0.3.1 workaround (geary must be started)
 		imports.mainloop.timeout_add(3000,function() {	Main.Util.trySpawnCommandLine('geary mailto:'); });
-	},
+	}
 
-	destroy: function() {
+    destroy() {
 
-		this.parent();
-	},
-
-});
+		super.destroy();
+	}
+};
 
 function _updateMessageStatus() {
 	// get all Messages
