@@ -4,6 +4,8 @@
  * See LICENSE.txt for details
  */
 
+const GObject = imports.gi.GObject;
+
 const Gdk = imports.gi.Gdk;
 const GLib = imports.gi.GLib;
 const Lang = imports.lang;
@@ -122,9 +124,9 @@ const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.Popu
 	}
 };
 
-const MessageMenu = class MessageMenu_MessageMenu extends PanelMenu.Button {
-    constructor() {
-		super(0.0, "MessageMenu");
+const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends PanelMenu.Button {
+    _init() {
+		super._init(0.0, "MessageMenu");
 		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
 		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
 								 style_class: 'system-status-icon' });
@@ -358,7 +360,7 @@ const MessageMenu = class MessageMenu_MessageMenu extends PanelMenu.Button {
 
 		super.destroy();
 	}
-};
+});
 
 function _updateMessageStatus() {
 	// get all Messages
