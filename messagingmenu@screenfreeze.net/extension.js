@@ -113,7 +113,7 @@ const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.Popu
 	this.actor.add_child(this.label);
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
-	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
+	this.actor.add_child(this._icon);
 
 	}
 
