@@ -14,6 +14,7 @@ const St = imports.gi.St;
 const Gio = imports.gi.Gio;
 
 const Main = imports.ui.main;
+const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
@@ -319,39 +320,39 @@ const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends 
 	}
 
     _TbCompose() {
-		Main.Util.trySpawnCommandLine('thunderbird -compose');
+		Util.trySpawnCommandLine('thunderbird -compose');
 	}
 
     _TbContacts() {
-		Main.Util.trySpawnCommandLine('thunderbird -addressbook');
+		Util.trySpawnCommandLine('thunderbird -addressbook');
 	}
 
     _icedoveCompose() {
-		Main.Util.trySpawnCommandLine('icedove -compose');
+		Util.trySpawnCommandLine('icedove -compose');
 	}
 
     _icedoveContacts() {
-		Main.Util.trySpawnCommandLine('icedove -addressbook');
+		Util.trySpawnCommandLine('icedove -addressbook');
 	}
 
     _kmailCompose() {
-		Main.Util.trySpawnCommandLine('kmail -compose');
+		Util.trySpawnCommandLine('kmail -compose');
 	}
 
     _clawsCompose() {
-		Main.Util.trySpawnCommandLine('claws-mail --compose');
+		Util.trySpawnCommandLine('claws-mail --compose');
 	}
 
     _evolutionCompose() {
-		Main.Util.trySpawnCommandLine('evolution mailto:');
+		Util.trySpawnCommandLine('evolution mailto:');
 	}
 
     _evolutionContacts() {
-		Main.Util.trySpawnCommandLine('evolution -c contacts');
+		Util.trySpawnCommandLine('evolution -c contacts');
 	}
 
     _gearyCompose() {
-		Main.Util.trySpawnCommandLine('geary');
+		Util.trySpawnCommandLine('geary');
 		//geary 0.3.1 workaround (geary must be started)
 		imports.mainloop.timeout_add(3000,function() {	Main.Util.trySpawnCommandLine('geary mailto:'); });
 	}
