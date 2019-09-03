@@ -1,15 +1,5 @@
 {
 "shell-version": [
-	"3.9",
-	"3.10",
-	"3.12",
-	"3.14",
-	"3.16",
-	"3.18",
-	"3.20",
-	"3.22",
-	"3.28",
-	"3.30",
 	"3.32"
 ],
 "uuid": "messagingmenu@screenfreeze.net",
@@ -17,6 +7,6 @@
 "gettext-domain": "gnome-shell-extensions",
 "description": "A Messaging Menu for the Gnome Shell. All Email and Chat Applications in one Place.",
 "url": "https://github.com/screenfreeze/messagingmenu.git",
-"version": 17,
+"version": 18,
 "settings-schema": "org.gnome.shell.extensions.messagingmenu"
 }
