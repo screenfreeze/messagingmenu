@@ -4,6 +4,8 @@
  * See LICENSE.txt for details
  */
 
+const GObject = imports.gi.GObject;
+
 const Gdk = imports.gi.Gdk;
 const GLib = imports.gi.GLib;
 const Lang = imports.lang;
@@ -12,6 +14,7 @@ const St = imports.gi.St;
 const Gio = imports.gi.Gio;
 
 const Main = imports.ui.main;
+const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
@@ -102,37 +105,31 @@ let compatible_hidden_MBlog_Notifiers = [
 ];
 
 
-const MessageMenuItem = new Lang.Class({
-	Name: 'MessageMenu.MessageMenuItem',
-	Extends: PopupMenu.PopupBaseMenuItem,
-
-	_init: function(app) {
-	this.parent();
+const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.PopupBaseMenuItem {
+    constructor(app) {
+	super();
 	this._app = app;
 
 	this.label = new St.Label({ text:app.get_name(), style_class: 'program-label' });
 	this.actor.add_child(this.label);
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
-	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
+	this.actor.add_child(this._icon);
 
-	},
+	}
 
-	activate: function(event) {
+    activate(event) {
 
 	this._app.activate_full(-1, event.get_time());
-	this.parent(event);
+	super.activate(event);
 	}
-});
+};
 
-const MessageMenu = new Lang.Class({
-	Name: 'MessageMenu.MessageMenu',
-	Extends: PanelMenu.Button,
-
-	_init: function() {
-		this.parent(0.0, "MessageMenu");
+const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends PanelMenu.Button {
+    _init() {
+		super._init(0.0, "MessageMenu");
 		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
-		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
+		let icon = new St.Icon({ icon_name: 'mail-message-new-symbolic',
 								 style_class: 'system-status-icon' });
 
 		hbox.add_child(icon);
@@ -154,10 +151,9 @@ const MessageMenu = new Lang.Class({
 
 		this._getApps();
 		this._buildMenu();
-	},
+	}
 
-	_buildMenu: function()
-	{
+    _buildMenu() {
 
 		// insert Email Clients into menu
 
@@ -259,9 +255,9 @@ const MessageMenu = new Lang.Class({
 			this.menu.addMenuItem(newLauncher);
 		}
 
-	},
+	}
 
-	_getApps: function() {
+    _getApps() {
 		let appsys = Shell.AppSystem.get_default();
 		//get available Email Apps
 		for (var p=0; p<compatible_Emails.length; p++) {
@@ -321,51 +317,50 @@ const MessageMenu = new Lang.Class({
 			}
 		}
 
-	},
+	}
 
-	_TbCompose: function() {
-		Main.Util.trySpawnCommandLine('thunderbird -compose');
-	},
+    _TbCompose() {
+		Util.trySpawnCommandLine('thunderbird -compose');
+	}
 
-	_TbContacts: function() {
-		Main.Util.trySpawnCommandLine('thunderbird -addressbook');
-	},
+    _TbContacts() {
+		Util.trySpawnCommandLine('thunderbird -addressbook');
+	}
 
-	_icedoveCompose: function() {
-		Main.Util.trySpawnCommandLine('icedove -compose');
-	},
+    _icedoveCompose() {
+		Util.trySpawnCommandLine('icedove -compose');
+	}
 
-	_icedoveContacts: function() {
-		Main.Util.trySpawnCommandLine('icedove -addressbook');
-	},
+    _icedoveContacts() {
+		Util.trySpawnCommandLine('icedove -addressbook');
+	}
 
-	_kmailCompose: function() {
-		Main.Util.trySpawnCommandLine('kmail -compose');
-	},
+    _kmailCompose() {
+		Util.trySpawnCommandLine('kmail -compose');
+	}
 
-	_clawsCompose: function() {
-		Main.Util.trySpawnCommandLine('claws-mail --compose');
-	},
+    _clawsCompose() {
+		Util.trySpawnCommandLine('claws-mail --compose');
+	}
 
-	_evolutionCompose: function() {
-		Main.Util.trySpawnCommandLine('evolution mailto:');
-	},
+    _evolutionCompose() {
+		Util.trySpawnCommandLine('evolution mailto:');
+	}
 
-	_evolutionContacts: function() {
-		Main.Util.trySpawnCommandLine('evolution -c contacts');
-	},
+    _evolutionContacts() {
+		Util.trySpawnCommandLine('evolution -c contacts');
+	}
 
-	_gearyCompose: function() {
-		Main.Util.trySpawnCommandLine('geary');
+    _gearyCompose() {
+		Util.trySpawnCommandLine('geary');
 		//geary 0.3.1 workaround (geary must be started)
 		imports.mainloop.timeout_add(3000,function() {	Main.Util.trySpawnCommandLine('geary mailto:'); });
-	},
+	}
 
-	destroy: function() {
+    destroy() {
 
-		this.parent();
-	},
-
+		super.destroy();
+	}
 });
 
 function _updateMessageStatus() {
