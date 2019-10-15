@@ -31,6 +31,7 @@ const ICON_SIZE = 22;
 
 let compatible_Chats = [
 	"amsn",
+	"im.dino.Dino",
 	"emesene",
 	"empathy",
 	"fedora-empathy",
