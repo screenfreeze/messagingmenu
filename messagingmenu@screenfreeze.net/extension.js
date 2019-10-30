@@ -47,6 +47,7 @@ let compatible_Chats = [
 	"pidgin",
 	"qtox",
 	"qutim",
+	"signal-desktop",
 	"skype",
 	"skypeforlinux",
 	"slack",
