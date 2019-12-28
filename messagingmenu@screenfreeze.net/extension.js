@@ -106,16 +106,16 @@ let compatible_hidden_MBlog_Notifiers = [
 ];
 
 
-const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.PopupBaseMenuItem {
-    constructor(app) {
-	super();
+const MessageMenuItem = GObject.registerClass(class MessageMenu_MessageMenuItem extends PopupMenu.PopupBaseMenuItem {
+    _init(app) {
+	super._init();
 	this._app = app;
 
 	this.label = new St.Label({ text:app.get_name(), style_class: 'program-label' });
-	this.actor.add_child(this.label);
+	this.add_child(this.label);
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
-	this.actor.add_child(this._icon);
+	this.add_child(this._icon);
 
 	}
 
@@ -124,7 +124,7 @@ const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.Popu
 	this._app.activate_full(-1, event.get_time());
 	super.activate(event);
 	}
-};
+});
 
 const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends PanelMenu.Button {
     _init() {
@@ -134,7 +134,7 @@ const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends 
 								 style_class: 'system-status-icon' });
 
 		hbox.add_child(icon);
-		this.actor.add_child(hbox);
+		this.add_child(hbox);
 
 		this.new_msg_string = _("Compose New Message");
 		this.contacts_string = _("Contacts");
@@ -486,7 +486,7 @@ function enable() {
 
 	Main.panel.addToStatusArea('messageMenu', _indicator,1);
 
-	iconBox =  statusArea.messageMenu.actor;
+	iconBox =  statusArea.messageMenu;
 
 	originalStyle = iconBox.get_style();
 }
