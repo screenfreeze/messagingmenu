@@ -74,7 +74,8 @@ let compatible_MBlogs = [
 	"polly",
 	"qwit",
 	"turpial",
-	"twitux"
+	"twitux",
+	"uk.co.ibboard.cawbird"
 ];
 
 let compatible_Emails = [
