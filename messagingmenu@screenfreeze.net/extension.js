@@ -4,8 +4,6 @@
  * See LICENSE.txt for details
  */
 
-const GObject = imports.gi.GObject;
-
 const Gdk = imports.gi.Gdk;
 const GLib = imports.gi.GLib;
 const Lang = imports.lang;
@@ -14,7 +12,6 @@ const St = imports.gi.St;
 const Gio = imports.gi.Gio;
 
 const Main = imports.ui.main;
-const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
@@ -44,14 +41,18 @@ let compatible_Chats = [
 	"openfetion",
 	"org.gnome.Fractal",
 	"org.gnome.Polari",
+    "org.remmina.Remmina",
 	"pidgin",
 	"qtox",
 	"qutim",
-	"signal-desktop",
 	"skype",
 	"skypeforlinux",
 	"slack",
+    "signal-desktop",
+    "discord",
 	"telegramdesktop",
+    "com.teamviewer.TeamViewer",
+    "com.vinszent.GnomeTwitch",
 	"utox",
 	"venom",
 	"viber",
@@ -106,31 +107,37 @@ let compatible_hidden_MBlog_Notifiers = [
 ];
 
 
-const MessageMenuItem = class MessageMenu_MessageMenuItem extends PopupMenu.PopupBaseMenuItem {
-    constructor(app) {
-	super();
+const MessageMenuItem = new Lang.Class({
+	Name: 'MessageMenu.MessageMenuItem',
+	Extends: PopupMenu.PopupBaseMenuItem,
+
+	_init: function(app) {
+	this.parent();
 	this._app = app;
 
 	this.label = new St.Label({ text:app.get_name(), style_class: 'program-label' });
 	this.actor.add_child(this.label);
 
 	this._icon = app.create_icon_texture(ICON_SIZE);
-	this.actor.add_child(this._icon);
+	this.actor.add_child(this._icon, { align: St.Align.END, span: -1 });
 
-	}
+	},
 
-    activate(event) {
+	activate: function(event) {
 
 	this._app.activate_full(-1, event.get_time());
-	super.activate(event);
+	this.parent(event);
 	}
-};
+});
 
-const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends PanelMenu.Button {
-    _init() {
-		super._init(0.0, "MessageMenu");
+const MessageMenu = new Lang.Class({
+	Name: 'MessageMenu.MessageMenu',
+	Extends: PanelMenu.Button,
+
+	_init: function() {
+		this.parent(0.0, "MessageMenu");
 		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
-		let icon = new St.Icon({ icon_name: 'mail-message-new-symbolic',
+		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
 								 style_class: 'system-status-icon' });
 
 		hbox.add_child(icon);
@@ -152,9 +159,10 @@ const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends 
 
 		this._getApps();
 		this._buildMenu();
-	}
+	},
 
-    _buildMenu() {
+	_buildMenu: function()
+	{
 
 		// insert Email Clients into menu
 
@@ -256,9 +264,9 @@ const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends 
 			this.menu.addMenuItem(newLauncher);
 		}
 
-	}
+	},
 
-    _getApps() {
+	_getApps: function() {
 		let appsys = Shell.AppSystem.get_default();
 		//get available Email Apps
 		for (var p=0; p<compatible_Emails.length; p++) {
@@ -318,50 +326,51 @@ const MessageMenu = GObject.registerClass(class MessageMenu_MessageMenu extends 
 			}
 		}
 
-	}
+	},
 
-    _TbCompose() {
-		Util.trySpawnCommandLine('thunderbird -compose');
-	}
+	_TbCompose: function() {
+		Main.Util.trySpawnCommandLine('thunderbird -compose');
+	},
 
-    _TbContacts() {
-		Util.trySpawnCommandLine('thunderbird -addressbook');
-	}
+	_TbContacts: function() {
+		Main.Util.trySpawnCommandLine('thunderbird -addressbook');
+	},
 
-    _icedoveCompose() {
-		Util.trySpawnCommandLine('icedove -compose');
-	}
+	_icedoveCompose: function() {
+		Main.Util.trySpawnCommandLine('icedove -compose');
+	},
 
-    _icedoveContacts() {
-		Util.trySpawnCommandLine('icedove -addressbook');
-	}
+	_icedoveContacts: function() {
+		Main.Util.trySpawnCommandLine('icedove -addressbook');
+	},
 
-    _kmailCompose() {
-		Util.trySpawnCommandLine('kmail -compose');
-	}
+	_kmailCompose: function() {
+		Main.Util.trySpawnCommandLine('kmail -compose');
+	},
 
-    _clawsCompose() {
-		Util.trySpawnCommandLine('claws-mail --compose');
-	}
+	_clawsCompose: function() {
+		Main.Util.trySpawnCommandLine('claws-mail --compose');
+	},
 
-    _evolutionCompose() {
-		Util.trySpawnCommandLine('evolution mailto:');
-	}
+	_evolutionCompose: function() {
+		Main.Util.trySpawnCommandLine('evolution mailto:');
+	},
 
-    _evolutionContacts() {
-		Util.trySpawnCommandLine('evolution -c contacts');
-	}
+	_evolutionContacts: function() {
+		Main.Util.trySpawnCommandLine('evolution -c contacts');
+	},
 
-    _gearyCompose() {
-		Util.trySpawnCommandLine('geary');
+	_gearyCompose: function() {
+		Main.Util.trySpawnCommandLine('geary');
 		//geary 0.3.1 workaround (geary must be started)
 		imports.mainloop.timeout_add(3000,function() {	Main.Util.trySpawnCommandLine('geary mailto:'); });
-	}
+	},
 
-    destroy() {
+	destroy: function() {
 
-		super.destroy();
-	}
+		this.parent();
+	},
+
 });
 
 function _updateMessageStatus() {
