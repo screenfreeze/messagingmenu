@@ -24,7 +24,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
-const ICON_SIZE = 22;
+const ICON_SIZE = 20;
 
 let compatible_Chats = [
 	"amsn",
@@ -41,18 +41,20 @@ let compatible_Chats = [
 	"openfetion",
 	"org.gnome.Fractal",
 	"org.gnome.Polari",
-    "org.remmina.Remmina",
+        "org.remmina.Remmina",
 	"pidgin",
 	"qtox",
 	"qutim",
 	"skype",
 	"skypeforlinux",
 	"slack",
-    "signal-desktop",
-    "discord",
+        "signal-desktop",
+        "discord",
 	"telegramdesktop",
-    "com.teamviewer.TeamViewer",
-    "com.vinszent.GnomeTwitch",
+        "caprine",
+        "com.teamviewer.TeamViewer",
+        "com.vinszent.GnomeTwitch",
+        "whatsdesk",
 	"utox",
 	"venom",
 	"viber",
