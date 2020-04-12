@@ -496,4 +496,5 @@ function enable() {
 function disable() {
 	MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
 	_indicator.destroy();
+	_indicator = null;
 }
