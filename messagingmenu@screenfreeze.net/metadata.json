@@ -1,7 +1,8 @@
 {
 "shell-version": [
 	"3.34",
-	"3.36"
+	"3.36",
+	"3.38"
 ],
 "uuid": "messagingmenu@lauinger-clan.de",
 "name": "Messaging Menu",
@@ -9,6 +10,6 @@
 "gettext-domain": "gnome-shell-extensions",
 "description": "A Messaging Menu for the Gnome Shell. All Email and Chat Applications in one Place.",
 "url": "https://github.com/ChrisLauinger77/messagingmenu",
-"version": 19,
+"version": 20,
 "settings-schema": "org.gnome.shell.extensions.messagingmenu"
 }
