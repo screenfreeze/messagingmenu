@@ -466,8 +466,9 @@ function customUpdateCount() {
 function init(extensionMeta) {
 	Convenience.initTranslations();
 	settings = Convenience.getSettings();
-	let theme = imports.gi.Gtk.IconTheme.get_default();
-	theme.append_search_path(extensionMeta.path + "/icons");
+//	let theme = imports.gi.Gtk.IconTheme.get_default();
+//	theme.append_search_path(extensionMeta.path + "/icons");
+
 }
 
 let _indicator;

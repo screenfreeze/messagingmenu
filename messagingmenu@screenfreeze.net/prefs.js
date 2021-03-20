@@ -11,8 +11,7 @@ const Convenience = Me.imports.convenience;
 let settings;
 
 function createColorSettingWidget() {
-	let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
-							margin_top: 5});
+	let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_top: 5});
 
 	let color_setting_label = new Gtk.Label({label: _("Notification Color (Hex):"),
 										xalign: 0 });
@@ -25,8 +24,8 @@ function createColorSettingWidget() {
 		}
 	});
 
-	hbox1.pack_start(color_setting_label, true, true, 0);
-	hbox1.add(color_setting_string);
+	hbox1.prepend(color_setting_label, true, true, 0);
+	hbox1.append(color_setting_string);
 
 	return hbox1;
 }
@@ -34,8 +33,7 @@ function createColorSettingWidget() {
 function createNotificationSettingsWidget() {
 	let vbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL});
 
-	let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
-							margin_top: 5});
+	let hbox1 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_top: 5});
 
 	let email_setting_label = new Gtk.Label({label: _("Email Notification:"),
 									   xalign: 0 });
@@ -45,12 +43,11 @@ function createNotificationSettingsWidget() {
 		settings.set_boolean('notify-email', button.active);
 	});
 
-	hbox1.pack_start(email_setting_label, true, true, 0);
-	hbox1.add(email_setting_switch);
-	vbox.add(hbox1);
+	hbox1.prepend(email_setting_label, true, true, 0);
+	hbox1.append(email_setting_switch);
+	vbox.append(hbox1);
 
-	let hbox2 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
-							margin_top: 5});
+	let hbox2 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_top: 5});
 
 	let chat_setting_label = new Gtk.Label({label: _("Chat Notification:"),
 									   xalign: 0 });
@@ -60,12 +57,11 @@ function createNotificationSettingsWidget() {
 		settings.set_boolean('notify-chat', button.active);
 	});
 
-	hbox2.pack_start(chat_setting_label, true, true, 0);
-	hbox2.add(chat_setting_switch);
-	vbox.add(hbox2);
+	hbox2.prepend(chat_setting_label, true, true, 0);
+	hbox2.append(chat_setting_switch);
+	vbox.append(hbox2);
 
-	let hbox3 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL,
-							margin_top: 5});
+	let hbox3 = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_top: 5});
 
 	let mblogging_setting_label = new Gtk.Label({label: _("Micro Blogging Notification:"),
 									   xalign: 0 });
@@ -75,24 +71,22 @@ function createNotificationSettingsWidget() {
 		settings.set_boolean('notify-mblogging', button.active);
 	});
 
-	hbox3.pack_start(mblogging_setting_label, true, true, 0);
-	hbox3.add(mblogging_setting_switch);
-	vbox.add(hbox3);
+	hbox3.prepend(mblogging_setting_label, true, true, 0);
+	hbox3.append(mblogging_setting_switch);
+	vbox.append(hbox3);
 
 	return vbox;
 }
 
 function buildPrefsWidget() {
-  let frame = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL,
-						   border_width: 10});
-  let vbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL,
-						  margin: 20, margin_top: 10});
+  let frame = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL});
+  let vbox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_top: 10});
   let notifySettings = createNotificationSettingsWidget();
   let colorSetting = createColorSettingWidget();
-	vbox.add(notifySettings);
-	vbox.add(colorSetting);
-	frame.add(vbox);
-	frame.show_all();
+	vbox.append(notifySettings);
+	vbox.append(colorSetting);
+	frame.append(vbox);
+//	frame.show_all();
 
 	return frame;
 }
