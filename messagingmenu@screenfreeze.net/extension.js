@@ -8,7 +8,6 @@ const GObject = imports.gi.GObject;
 
 const Gdk = imports.gi.Gdk;
 const GLib = imports.gi.GLib;
-const Lang = imports.lang;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 const Gio = imports.gi.Gio;
@@ -173,8 +172,8 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.con.connect("activate", Lang.bind(this, this._evolutionContacts));
-        this.comp.connect("activate", Lang.bind(this, this._evolutionCompose));
+        this.con.connect("activate", this._evolutionContacts.bind(this));
+        this.comp.connect("activate", this._evolutionCompose.bind(this));
         this.menu.addMenuItem(this.comp);
         this.menu.addMenuItem(this.con);
       }
@@ -192,10 +191,10 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.comp_tb.connect("activate", Lang.bind(this, this._TbCompose));
+        this.comp_tb.connect("activate", this._TbCompose.bind(this));
         this.menu.addMenuItem(this.comp_tb);
 
-        this.con_tb.connect("activate", Lang.bind(this, this._TbContacts));
+        this.con_tb.connect("activate", this._TbContacts.bind(this));
         this.menu.addMenuItem(this.con_tb);
       }
 
@@ -212,16 +211,10 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.comp_icedove.connect(
-          "activate",
-          Lang.bind(this, this._icedoveCompose)
-        );
+        this.comp_icedove.connect("activate", this._icedoveCompose.bind(this));
         this.menu.addMenuItem(this.comp_icedove);
 
-        this.con_icedove.connect(
-          "activate",
-          Lang.bind(this, this._icedoveContacts)
-        );
+        this.con_icedove.connect("activate", this._icedoveContacts.bind(this));
         this.menu.addMenuItem(this.con_icedove);
       }
 
@@ -234,7 +227,7 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.comp.connect("activate", Lang.bind(this, this._kmailCompose));
+        this.comp.connect("activate", this._kmailCompose.bind(this));
         this.menu.addMenuItem(this.comp);
       }
 
@@ -247,7 +240,7 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.comp.connect("activate", Lang.bind(this, this._clawsCompose));
+        this.comp.connect("activate", this._clawsCompose.bind(this));
         this.menu.addMenuItem(this.comp);
       }
 
@@ -260,7 +253,7 @@ const MessageMenu = GObject.registerClass(
           style_class: "special-action",
         });
 
-        this.comp.connect("activate", Lang.bind(this, this._gearyCompose));
+        this.comp.connect("activate", this._gearyCompose.bind(this));
         this.menu.addMenuItem(this.comp);
       }
 
