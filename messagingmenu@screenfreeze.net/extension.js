@@ -141,7 +141,7 @@ const MessageMenu = new Lang.Class({
 	_init: function() {
 		this.parent(0.0, "MessageMenu");
 		let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
-		let icon = new St.Icon({ icon_name: 'mymail-symbolic',
+		let icon = new St.Icon({ icon_name: 'document-send-symbolic',
 								 style_class: 'system-status-icon' });
 
 		hbox.add_child(icon);
