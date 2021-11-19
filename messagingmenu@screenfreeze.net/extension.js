@@ -54,6 +54,8 @@ let compatible_Chats = [
         "caprine",
         "com.teamviewer.TeamViewer",
         "com.vinszent.GnomeTwitch",
+	"Zoom",
+	"zoom",
         "whatsdesk",
 	"utox",
 	"venom",
