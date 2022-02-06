@@ -6,7 +6,6 @@ const Gettext = imports.gettext.domain("gnome-shell-extensions");
 const _ = Gettext.gettext;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 
 let settings;
 
@@ -134,6 +133,8 @@ function buildPrefsWidget() {
 }
 
 function init() {
-  settings = Convenience.getSettings();
-  Convenience.initTranslations();
+  ExtensionUtils.initTranslations("messagingmenu");
+  settings = ExtensionUtils.getSettings(
+    "org.gnome.shell.extensions.messagingmenu"
+  );
 }

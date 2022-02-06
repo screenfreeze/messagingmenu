@@ -7,7 +7,7 @@
 "uuid": "messagingmenu@lauinger-clan.de",
 "name": "Messaging Menu",
 "original-author": "sinisterstuf",
-"gettext-domain": "gnome-shell-extensions",
+"gettext-domain": "messagingmenu",
 "description": "A Messaging Menu for the Gnome Shell. All Email and Chat Applications in one Place.",
 "url": "https://github.com/ChrisLauinger77/messagingmenu",
 "version": 24,
