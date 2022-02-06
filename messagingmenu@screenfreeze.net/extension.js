@@ -365,8 +365,7 @@ const MessageMenu = GObject.registerClass(
     }
 
     _gearyCompose() {
-      Util.trySpawnCommandLine("geary");
-      Util.trySpawnCommandLine("geary mailto:");
+      Util.trySpawnCommandLine("geary mailto:user@example.com");
     }
 
     destroy() {
