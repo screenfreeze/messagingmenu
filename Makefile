@@ -2,7 +2,7 @@
 UUID=messagingmenu@screenfreeze.net
 # GitHub doesn't accept @ in filesnames:
 GHID=messagingmenu.screenfreeze.net
-NAME=gnome-shell-extensions
+NAME=messagingmenu
 FILES=metadata.json *.js stylesheet.css schemas icons locale/**/ LICENSE.txt
 INSTALLDIR=$(HOME)/.local/share/gnome-shell/extensions
 #=============================================================================

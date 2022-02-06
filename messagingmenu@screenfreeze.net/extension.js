@@ -6,11 +6,8 @@
 
 const GObject = imports.gi.GObject;
 
-const Gdk = imports.gi.Gdk;
-const GLib = imports.gi.GLib;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-const Gio = imports.gi.Gio;
 
 const Main = imports.ui.main;
 const Util = imports.misc.util;
@@ -19,12 +16,11 @@ const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
 const MessageTray = imports.ui.messageTray;
 
-const Gettext = imports.gettext.domain("gnome-shell-extensions");
+const Gettext = imports.gettext.domain("messagingmenu");
 const _ = Gettext.gettext;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
 
 const ICON_SIZE = 22;
 
@@ -370,10 +366,7 @@ const MessageMenu = GObject.registerClass(
 
     _gearyCompose() {
       Util.trySpawnCommandLine("geary");
-      //geary 0.3.1 workaround (geary must be started)
-      imports.mainloop.timeout_add(3000, function () {
-        Main.Util.trySpawnCommandLine("geary mailto:");
-      });
+      Util.trySpawnCommandLine("geary mailto:");
     }
 
     destroy() {
@@ -483,14 +476,12 @@ function customUpdateCount() {
 }
 
 function init(extensionMeta) {
-  Convenience.initTranslations();
-  settings = Convenience.getSettings();
+  ExtensionUtils.initTranslations("messagingmenu");
   //	let theme = imports.gi.Gtk.IconTheme.get_default();
   //	theme.append_search_path(extensionMeta.path + "/icons");
 }
 
 let _indicator;
-let settings;
 let originalUpdateCount;
 let originalStyle;
 let iconChanged = false;
@@ -499,6 +490,9 @@ let statusArea;
 let iconBox;
 
 function enable() {
+  this.settings = ExtensionUtils.getSettings(
+    "org.gnome.shell.extensions.messagingmenu"
+  );
   _indicator = new MessageMenu();
 
   originalUpdateCount = MessageTray.SourceActor.prototype._updateCount;
@@ -517,4 +511,5 @@ function disable() {
   MessageTray.SourceActor.prototype._updateCount = originalUpdateCount;
   _indicator.destroy();
   _indicator = null;
+  this.settings = null;
 }
