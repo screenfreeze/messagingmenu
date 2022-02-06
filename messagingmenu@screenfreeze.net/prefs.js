@@ -134,7 +134,7 @@ function buildPrefsWidget() {
 
 function init() {
   ExtensionUtils.initTranslations("messagingmenu");
-  Settings = ExtensionUtils.getSettings(
+  settings = ExtensionUtils.getSettings(
     "org.gnome.shell.extensions.messagingmenu"
   );
 }
