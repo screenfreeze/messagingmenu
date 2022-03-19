@@ -53,6 +53,7 @@ let compatible_Chats = [
   "venom",
   "viber",
   "xchat",
+  "discord",
 ];
 
 let compatible_MBlogs = [
