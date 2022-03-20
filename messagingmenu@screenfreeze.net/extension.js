@@ -53,6 +53,7 @@ let compatible_Chats = [
   "venom",
   "viber",
   "xchat",
+  "discord",
 ];
 
 let compatible_MBlogs = [
@@ -73,6 +74,7 @@ let compatible_MBlogs = [
   "turpial",
   "twitux",
   "uk.co.ibboard.cawbird",
+  "com.github.bleakgrey.tootle",
 ];
 
 let compatible_Emails = [
