@@ -11,6 +11,6 @@
 "gettext-domain": "messagingmenu",
 "description": "A Messaging Menu for the Gnome Shell. All Email and Chat Applications in one Place.",
 "url": "https://github.com/ChrisLauinger77/messagingmenu",
-"version": 25,
+"version": 26,
 "settings-schema": "org.gnome.shell.extensions.messagingmenu"
 }

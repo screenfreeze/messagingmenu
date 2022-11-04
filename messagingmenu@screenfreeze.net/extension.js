@@ -5,7 +5,7 @@
  */
 
 const GObject = imports.gi.GObject;
-
+const Gio = imports.gi.Gio;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
@@ -129,8 +129,11 @@ const MessageMenu = GObject.registerClass(
     _init() {
       super._init(0.0, "MessageMenu");
       let hbox = new St.BoxLayout({ style_class: "panel-status-menu-box" });
+      let gicon = Gio.icon_new_for_string(
+        Me.path + "/icons/mymail-symbolic.svg"
+      );
       let icon = new St.Icon({
-        icon_name: "mail-message-new-symbolic",
+        gicon,
         style_class: "system-status-icon",
       });
 
@@ -151,7 +154,9 @@ const MessageMenu = GObject.registerClass(
       this._evolution = null;
       this._geary = null;
 
-      this._getApps();
+      this._getAppsEMAIL();
+      this._getAppsCHAT();
+      this._getAppsBLOG();
       this._buildMenu();
     }
 
@@ -276,7 +281,7 @@ const MessageMenu = GObject.registerClass(
       }
     }
 
-    _getApps() {
+    _getAppsEMAIL() {
       let appsys = Shell.AppSystem.get_default();
       //get available Email Apps
       for (var p = 0; p < compatible_Emails.length; p++) {
@@ -308,6 +313,9 @@ const MessageMenu = GObject.registerClass(
           }
         }
       }
+    }
+    _getAppsCHAT() {
+      let appsys = Shell.AppSystem.get_default();
       //get available Chat Apps
       for (var o = 0; o < compatible_Chats.length; o++) {
         let app_name = compatible_Chats[o];
@@ -320,6 +328,10 @@ const MessageMenu = GObject.registerClass(
           }
         }
       }
+    }
+
+    _getAppsBLOG() {
+      let appsys = Shell.AppSystem.get_default();
       //get available Blogging Apps
       for (var u = 0; u < compatible_MBlogs.length; u++) {
         let app_name = compatible_MBlogs[u];
@@ -476,10 +488,8 @@ function customUpdateCount() {
   }
 }
 
-function init(extensionMeta) {
+function init() {
   ExtensionUtils.initTranslations("messagingmenu");
-  //	let theme = imports.gi.Gtk.IconTheme.get_default();
-  //	theme.append_search_path(extensionMeta.path + "/icons");
 }
 
 let _indicator;

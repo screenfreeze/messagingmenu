@@ -127,7 +127,6 @@ function buildPrefsWidget() {
   vbox.append(notifySettings);
   vbox.append(colorSetting);
   frame.append(vbox);
-  //	frame.show_all();
 
   return frame;
 }
