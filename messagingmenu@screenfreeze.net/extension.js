@@ -13,7 +13,6 @@ const Util = imports.misc.util;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Panel = imports.ui.panel;
-const MessageTray = imports.ui.messageTray;
 const Gettext = imports.gettext.domain("messagingmenu");
 const _ = Gettext.gettext;
 const ExtensionUtils = imports.misc.extensionUtils;
@@ -27,6 +26,7 @@ let iconChanged = false;
 let availableNotifiers = new Array();
 let statusArea;
 let iconBox;
+let _queuechanged_handler;
 
 let compatible_Chats = [
   "amsn",
@@ -429,44 +429,44 @@ function _checkNotifyEmailByID(source) {
   let result = false;
   for (let a_Notifier of availableNotifiers) {
     let app_id = a_Notifier.get_id(); //e.g. thunderbird.desktop
-    if (source.app.get_id() == app_id && unseenMessageCheck(source)) {
+    if (source.app.get_id().toLowerCase() == app_id.toLowerCase()) {
       result = true;
-      return result;
     }
   }
+  return result;
 }
 
 function _checkNotifyEmailByName(source) {
   let result = false;
   for (let a_Notifier of availableNotifiers) {
     let app_name = a_Notifier.get_name(); //e.g. Thunderbird Mail
-    if (source.title == app_name && unseenMessageCheck(source)) {
+    if (source.title.toLowerCase() == app_name.toLowerCase()) {
       result = true;
-      return result;
     }
   }
+  return result;
 }
 
 function _checkNotifyHiddenEmail(source) {
   let result = false;
   for (let a_Notifier of compatible_hidden_Email_Notifiers) {
     let app_name = a_Notifier; //e.g. Mailnag
-    if (source.title == app_name && unseenMessageCheck(source)) {
+    if (source.title.toLowerCase() == app_name.toLowerCase()) {
       result = true;
-      return result;
     }
   }
+  return result;
 }
 
 function _checkNotifyMBlog(source) {
   let result = false;
   for (let a_Notifier of compatible_hidden_MBlog_Notifiers) {
     let app_name = a_Notifier; //e.g. friends
-    if (source.title == app_name && unseenMessageCheck(source)) {
+    if (source.title.toLowerCase() == app_name.toLowerCase()) {
       result = true;
-      return result;
     }
   }
+  return result;
 }
 
 function _changeStatusIcon(newMessage) {
@@ -483,18 +483,15 @@ function _changeStatusIcon(newMessage) {
 
 function unseenMessageCheck(source) {
   let unseen = false;
-  if (source.unseenCount == undefined) {
-    unseen =
-      source._counterBin.visible && source._counterLabel.get_text() != "0";
-  } else {
+  if (source.countVisible == undefined) {
     unseen = source.unseenCount > 0;
+  } else {
+    unseen = source.countVisible > 0;
   }
-
   return unseen;
 }
 
-function customUpdateCount() {
-  originalUpdateCount.call(this);
+function _queuechanged() {
   try {
     _updateMessageStatus();
   } catch (err) {
@@ -514,8 +511,10 @@ function enable() {
   );
   _indicator = new MessageMenu();
 
-  originalUpdateCount = MessageTray.Source.prototype.countUpdated;
-  MessageTray.Source.prototype.countUpdated = customUpdateCount;
+  _queuechanged_handler = Main.messageTray.connect(
+    "queue-changed",
+    this._queuechanged.bind(this)
+  );
 
   statusArea = Main.panel.statusArea;
 
@@ -527,7 +526,7 @@ function enable() {
 }
 
 function disable() {
-  MessageTray.Source.prototype.countUpdated = originalUpdateCount;
+  Main.messageTray.disconnect(_queuechanged_handler);
   _indicator.destroy();
   _indicator = null;
   this.settings = null;
