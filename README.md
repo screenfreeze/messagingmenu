@@ -16,6 +16,7 @@ which colour the icon should change to, to indicate notification.
 
 Read [here](http://screenfreeze.net/messaging-menu-for-gnome-3/) for why this
 extension was created.
+
 Originally forked from https://github.com/screenfreeze/messagingmenu
 
 ## Installation
