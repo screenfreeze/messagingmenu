@@ -16,27 +16,27 @@ which colour the icon should change to, to indicate notification.
 
 Read [here](http://screenfreeze.net/messaging-menu-for-gnome-3/) for why this
 extension was created.
+Originally forked from https://github.com/screenfreeze/messagingmenu
 
 ## Installation
 
 ### The easy way (recommended):
-One-click install from [extensions.gnome.org](https://extensions.gnome.org/extension/519/messaging-menu/)!
+One-click install from [extensions.gnome.org](https://extensions.gnome.org/extension/2896/messaging-menu/)!
 
 ### Download latest release
-1. Download the zip file from the [release page](https://github.com/screenfreeze/messagingmenu/releases/latest)
+1. Download the zip file from the [release page](https://github.com/ChrisLauinger77/messagingmenu/releases/latest)
 2. The md5 and sig files can be used to verify the integrity of the zip file
 3. Open `gnome-tweak-tool`, go to "Shell Extensions", "Install Extension" and select the zip file.
 
 ### Compile from source
-If using GNOME 3.4, use the `gnome34` branch. For GNOME 3.6-3.8 use the
-`gnome36_38` branch. Otherwise use the `master` branch.
+Use the `master` branch.
 
 ```bash
-git clone https://github.com/screenfreeze/messagingmenu.git
+git clone https://github.com/ChrisLauinger77/messagingmenu.git
 cd messagingmenu.git
 make install # compile locales, schemas and install locally
 # enable messagingmenu if you haven't already:
-gnome-shell-extension-tool -e messagingmenu@screenfreeze.net
+gnome-shell-extension-tool -e messagingmenu@lauinger-clan.de
 ```
 
 Now restart gnome-shell.
